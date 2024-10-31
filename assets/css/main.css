@@ -3197,8 +3197,12 @@
 				background-color: #2e3141;
 				background-image: linear-gradient(to top, rgba(46, 49, 65, 0.8), rgba(46, 49, 65, 0.8)), url("../../images/yemi-bg.gif");
 				background-size: auto, cover;
-				background-position: center, center;
+				background-position: center, left;
 				margin-bottom: -6.5em;
+
+			}
+			#banner.second {
+				background-position: center, right;
 			}
 
 		}
