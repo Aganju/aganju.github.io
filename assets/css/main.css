@@ -7,6 +7,12 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+/* Smooth Scrolling */
+
+	html {
+		scroll-behavior: smooth;
+	}
+
 /* Reset */
 
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
@@ -3744,30 +3750,33 @@
 		display: -webkit-flex;
 		display: -ms-flex;
 		display: flex;
-		-moz-flex-direction: row;
-		-webkit-flex-direction: row;
-		-ms-flex-direction: row;
-		flex-direction: row;
-		-moz-flex-wrap: wrap;
-		-webkit-flex-wrap: wrap;
-		-ms-flex-wrap: wrap;
-		flex-wrap: wrap;
+		-moz-flex-direction: column;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		-moz-align-items: center;
+		-webkit-align-items: center;
+		-ms-align-items: center;
+		align-items: center;
+		text-align: center;
 		margin: 0 auto;
 		width: 55em;
 	}
 
 		#footer .inner > * {
 			width: 100%;
-			font-size: 0.8em;
 		}
 
-		#footer .inner form {
-			margin: 0 3em 0 0;
-			width: calc(50% - 1.5em);
+		#footer .inner .actions {
+			-moz-justify-content: center;
+			-webkit-justify-content: center;
+			-ms-justify-content: center;
+			justify-content: center;
 		}
 
 		#footer .inner .contact {
-			width: calc(50% - 1.5em);
+			list-style: none;
+			padding: 0;
 		}
 
 		#footer .inner .copyright {
@@ -3822,13 +3831,9 @@
 			#footer .inner {
 				padding: 3em 3em 1em 3em ;
 				display: block;
+				text-align: center;
 				width: 100%;
 			}
-
-				#footer .inner form {
-					width: 100%;
-					margin: 0 0 4em 0;
-				}
 
 				#footer .inner .contact {
 					width: 100%;
@@ -3851,10 +3856,6 @@
 			#footer .inner {
 				padding: 2em 2em 0.1em 2em ;
 			}
-
-				#footer .inner form {
-					margin: 0 0 3em 0;
-				}
 
 				#footer .inner .contact {
 					margin: 0 0 3em 0;
