@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Solid State by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -12,97 +7,456 @@
 		  window.dataLayer = window.dataLayer || [];
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
-
 		  gtag('config', 'UA-127901206-1');
 		</script>
-		<title>Yemi A.</title>
+		<title>Yemi.</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<link rel="icon" href="favicon.ico">
-		<link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
+		<link rel="icon" href="favicon-y-fraunces-nobox.svg" type="image/svg+xml">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #1a1a18;
+    --bg-clearing: #1e1c18;
+    --rule: #30281e;
+    --rule-heavy: #efe6d5;
+
+    --text-bone: #efe6d5;
+    --text-sand: #c9b89e;
+    --text-leather: #9e8874;
+    --text-dusk: #928068;
+    --text-bark: #856e52;
+
+    --accent: #e8a44a;
+    --accent-hover: #f5d89a;
+    --accent-secondary: #d4704a;
+
+    --system: #498a49;
+    --system-deep: #2d4a2d;
+
+    --ash: #3d2218;
+    --grad-left: #3d2218;
+    --grad-mid: #648864;
+    --grad-right: #1a2e1a;
+  }
+
+  [data-mode="light"] {
+    --bg: #cda07a;
+    --bg-clearing: #c4986f;
+    --rule: #b08058;
+    --rule-heavy: #261810;
+
+    --text-bone: #1e1610;
+    --text-sand: #2a1a10;
+    --text-leather: #443218;
+    --text-dusk: #453018;
+    --text-bark: #584028;
+
+    --accent: #8b3a2a;
+    --accent-hover: #a04028;
+    --accent-secondary: #6e2e20;
+
+    --system: #046a00;
+    --system-deep: #8aaa80;
+
+    --ash: #6e2e20;
+    --grad-left: #6e2e20;
+    --grad-mid: #3a6838;
+    --grad-right: #2d4a2d;
+  }
+
+  body {
+    font-family: 'Outfit', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text-bone);
+    transition: background 0.5s, color 0.5s;
+  }
+  .page { max-width: 680px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+  .mode-toggle {
+    cursor: pointer; font-size: 30px; transition: color 0.2s;
+  }
+  .mode-toggle:hover { color: var(--accent); }
+
+  .divider { border: none; border-top: 0.5px solid var(--rule); margin: 2rem 0; transition: border-color 0.5s; }
+  .divider-heavy { border: none; border-top: 1.5px solid var(--rule-heavy); margin: 2rem 0; transition: border-color 0.5s; }
+  .ground-strip {
+    height: 3px; border-radius: 2px; margin: 2rem 0;
+    background: linear-gradient(90deg, var(--grad-left) 0%, var(--grad-mid) 50%, var(--grad-right) 100%);
+    opacity: 0.45; transition: opacity 0.5s;
+  }
+
+  .topline {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'Courier Prime', monospace; font-size: 13px;
+    color: var(--system); letter-spacing: 0.04em; margin-bottom: 2rem;
+    transition: color 0.5s, background 0.5s;
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg); padding: 1rem 0;
+  }
+  .name { color: var(--system);font-family: 'Courier Prime', monospace; font-size: 18px; }
+  .topline-links { display: flex; align-items: center; gap: 1.5rem; }
+  .topline-links span { cursor: pointer; transition: color 0.2s; }
+  .topline-links span:hover { color: var(--accent); }
+
+  .hero { margin-bottom: 4rem; position: relative; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start; }
+  .hero-content { position: relative; }
+  .hero-portrait {
+    width: 180px; height: 280px; border-radius: 4px; overflow: hidden;
+    opacity: 0.85; transition: opacity 0.5s;
+  }
+  .hero-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .hero-headline {
+    margin-top: 1rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+    font-size: 32px; font-weight: 400; line-height: 1.2; letter-spacing: -0.025em;
+    color: var(--text-bone); margin-bottom: 1.5rem; transition: color 0.5s;
+  }
+  .hero-headline em {
+    font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400;
+    color: var(--accent); transition: color 0.5s;
+  }
+  .hero-annotation {
+    position: absolute; left: 100px; top: -8px;
+    font-family: 'Courier Prime', monospace; font-size: 12px;
+    color: var(--system); letter-spacing: 0.04em; text-align: right;
+    line-height: 1.8; max-width: 200px; transition: color 0.5s;
+  }
+  .hero-sub {
+    font-size: 16px; color: var(--text-leather); line-height: 1.65;
+    transition: color 0.5s;
+  }
+
+  .interleave-row {
+    display: grid; grid-template-columns: 100px minmax(0, 1fr);
+    gap: 0 1.5rem; padding: 1.25rem 0;
+    border-bottom: 0.5px solid var(--rule); transition: border-color 0.5s;
+  }
+  .il-label {
+    font-family: 'Courier Prime', monospace; font-size: 12px;
+    color: var(--system); letter-spacing: 0.08em; padding-top: 4px;
+    text-transform: uppercase; transition: color 0.5s;
+  }
+  .il-claim { font-size: 16px; color: var(--text-sand); line-height: 1.6; transition: color 0.5s; }
+  .il-claim em {
+    font-family: 'Fraunces', Georgia, serif; font-style: italic;
+    color: var(--accent); transition: color 0.5s;
+  }
+  .il-proof { font-size: 13px; color: var(--text-dusk); margin-top: 6px; transition: color 0.5s; }
+  .il-proof .num { color: var(--accent); font-weight: 500; font-size: 16px; transition: color 0.5s; }
+
+  .proof-strip { display: flex; gap: 3rem; padding: 2.5rem 0; flex-wrap: wrap; align-items: baseline; }
+  .proof-item { display: flex; align-items: baseline; gap: 0.4rem; }
+  .proof-num { font-size: 36px; font-weight: 400; letter-spacing: -0.03em; transition: color 0.5s; }
+  .proof-label {
+    font-family: 'Courier Prime', monospace; font-size: 12px;
+    color: var(--text-bark); letter-spacing: 0.03em; transition: color 0.5s;
+  }
+
+  .bio-strip {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1px; border: 0.5px solid var(--rule); transition: border-color 0.5s;
+  }
+  .bio-cell { padding: 1.25rem 1rem; background: var(--bg-clearing); transition: background 0.5s; }
+  .bio-cell-label {
+    font-family: 'Courier Prime', monospace; font-size: 11px;
+    letter-spacing: 0.1em; color: var(--system); text-transform: uppercase;
+    margin-bottom: 6px; transition: color 0.5s;
+  }
+  .bio-cell-value { font-size: 13px; color: var(--text-dusk); line-height: 1.5; transition: color 0.5s; }
+  .bio-cell-value span { color: var(--text-sand); }
+
+  .section-label {
+    font-family: 'Courier Prime', monospace; font-size: 12px;
+    letter-spacing: 0.1em; color: var(--system); text-transform: uppercase;
+    margin-bottom: 1rem; transition: color 0.5s;
+  }
+  .writing-row {
+    display: grid; grid-template-columns: 80px minmax(0, 1fr);
+    gap: 0 1.5rem; padding: 0.85rem 0;
+    border-bottom: 0.5px solid var(--rule); cursor: pointer; transition: border-color 0.5s;
+  }
+  .writing-row:hover .wr-title { color: var(--accent); }
+  .wr-date {
+    font-family: 'Courier Prime', monospace; font-size: 12px;
+    color: var(--text-bark); padding-top: 3px; letter-spacing: 0.03em; transition: color 0.5s;
+  }
+  .wr-title { font-size: 16px; color: var(--text-sand); transition: color 0.2s; }
+  .wr-tag { font-family: 'Courier Prime', monospace; font-size: 12px; color: var(--system); transition: color 0.5s; }
+
+  .cta-section { padding: 3rem 0 1rem; }
+  .cta-text { font-size: 16px; color: var(--text-dusk); line-height: 1.65; max-width: 380px; transition: color 0.5s; }
+  .cta-link {
+    display: inline-block; margin-top: 0.75rem; font-size: 16px; font-weight: 500;
+    color: var(--accent); border-bottom: 1px solid var(--accent);
+    padding-bottom: 2px; cursor: pointer; transition: color 0.2s, border-color 0.2s;
+    text-decoration: none;
+  }
+  .cta-link:hover { color: var(--accent-hover); border-color: var(--accent-hover); }
+
+  .margin-note {
+    position: fixed; right: 12px; top: 50%; transform: translateY(-50%);
+    font-family: 'Courier Prime', monospace; font-size: 12px;
+    color: var(--system); letter-spacing: 0.04em;
+    writing-mode: vertical-rl; text-orientation: mixed; transition: color 0.5s;
+  }
+
+  .reading-sample { padding: 2rem 0; max-width: 540px; }
+  .reading-sample h3 { font-size: 22px; font-weight: 500; color: var(--text-bone); margin-bottom: 0.5rem; transition: color 0.5s; }
+  .reading-sample .article-meta {
+    font-family: 'Courier Prime', monospace; font-size: 12px;
+    color: var(--text-bark); letter-spacing: 0.04em; margin-bottom: 1.5rem; transition: color 0.5s;
+  }
+  .reading-sample .article-meta span { color: var(--system); }
+  .reading-sample p { font-size: 16px; color: var(--text-sand); line-height: 1.75; margin-bottom: 1.25rem; transition: color 0.5s; }
+  .reading-sample p em {
+    font-family: 'Fraunces', Georgia, serif; font-style: italic;
+    color: var(--accent); transition: color 0.5s;
+  }
+  .reading-sample blockquote {
+    font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 18px;
+    color: var(--text-bone); line-height: 1.5; border-left: 2px solid var(--ash);
+    padding-left: 1.25rem; margin: 1.5rem 0; transition: color 0.5s, border-color 0.5s;
+  }
+
+  .slot { display: inline; position: relative; min-height: 2.4em; }
+  .slot-word { display: inline-flex; white-space: nowrap; }
+  .slot-char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(-0.5em);
+  }
+
+  @media (max-width: 640px) {
+    .slot { display: inline-block; min-height: 2.4em; vertical-align: top; }
+    .interleave-row { grid-template-columns: 1fr; gap: 0.25rem 0; }
+    .il-label { padding-top: 0; margin-bottom: 0.25rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-portrait { width: 60%; height: 360px; order: -1; border-radius: 4px; margin: 0 auto 1rem; }
+  }
+</style>
 	</head>
 	<body>
 
-		<!-- Page Wrapper -->
-			<div id="page-wrapper">
+<div class="page" id="root">
 
-				<!-- Header -->
-					<header id="header" class="alt">
-						<h1><a href="index.html">Yemi Agbeyegbe</a></h1>
-					</header>
+  <div class="topline">
+    <span class="name"><img src="favicon-y-fraunces-nobox.svg" alt="Y" style="height:2.2em;vertical-align:-0.15em;"></span>
+    <div class="topline-links">
+      <span class="name" onclick="window.location.href='./'">Yemi Agbeyegbe</span>
+      <!-- <span>Thoughts</span>
+      |
+      <span>Works</span> -->
+    </div>
+    <span class="mode-toggle" onclick="toggleMode()" id="mode-icon" title="terre de jour">☀︎</span></div>
 
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-headline">
+        <span>Hi, I'm <em style="color:var(--system)">Yemi</em>,</span>
+        <span class="slot" id="slot"></span>
+      </div>
+      <div class="hero-annotation">[ benin city -> brooklyn ]</div>
+      <p class="hero-sub">Software is a transmission medium for intent. I work with founders at the source — the vision, the team, the operating system before it becomes code.</p>
+    </div>
+    <div class="hero-portrait"><img src="images/yemi-face.png" alt="Yemi"></div>
+  </div>
 
-				<!-- Banner -->
-					<section id="banner">
-						<div class="inner">
-							<div class="logo">
-								<span class="icon fa-terminal"></span>
-							</div>
-							<h2>Yemi A.</h2>
-							<h3>Engineering Creativity
-								<p>Product Engineering and Consulting for Startups</p>
-								<p><a href="#footer">
-									<span class="icon fa-angle-double-down"></span>
-									Connect with me
-									<span class="icon fa-angle-double-down"></span>
-								</a></p>
-							</h3>
-						</div>
-					</section>
-					<section id="banner" class="second">
+  <hr class="divider-heavy">
 
-							<div class="inner">
-						<h3>About Me
-						<p>
-							I'm a startup engineer. Some things I've learned on the journey from 0 - 1 and beyond:
-						</p>
-						<ul>
-							<p>	
-								<p>If you can't keep a team engaged, you can't keep your customers happy.</p>
-								<p>The power of directed compounding iteration will save the world... or end it.</p>
-								<p>You can build fast and sustainable, it just requires incredible vision.</p>
-							</p>
-						</ul>
-						<p>
-							I aim to push any team I'm on in the direction of positive iteration quickly and sustainably.
-						</p>
-					</h3>
-					</div>
-					</section>
+  <div>
+    <div class="interleave-row">
+      <div class="il-label">Intent</div>
+      <div>
+        <div class="il-claim">Vision is identity. The strongest teams don't just align on a plan — they share a <em>desired existence</em> that makes decisions self-evident.</div>
+        <div class="il-proof">A career studying how seed-stage teams form, compound, and break — from the inside.</div>
+      </div>
+    </div>
+    <div class="interleave-row">
+      <div class="il-label">Origin</div>
+      <div>
+        <div class="il-claim">The highest leverage is at the origin, when the identity is still <em>coalescing</em>. A lot of startups never find their identity, and many lose it.</div>
+        <div class="il-proof">From real estate to payments to healthcare, the domain changed. The pattern didn't.</div>
+      </div>
+    </div>
+    <div class="interleave-row">
+      <div class="il-label">Renaissance</div>
+      <div>
+        <div class="il-claim">AI made code cheap. What remains is taste and intent. This is a <em>renaissance</em> for software — the standard rises, and weak visions will not survive.</div>
+        <div class="il-proof">The tools are better. The teams are stagnant.</div>
+      </div>
+    </div>
+  </div>
 
+  <!-- <hr class="divider"> -->
 
-				<!-- Footer -->
-					<section id="footer">
-						<div class="inner">
-							<h3 class="major">Get in touch</h3>
-							<p>If you want to chat with me, send me a message:</p>
-							<ul class="actions">
-								<li><a href="mailto:yemagbe@gmail.com" class="button">Send Me an Email</a></li>
-							</ul>
-							<ul class="contact">
-								<li class="fa-linkedin"><a href="https://www.linkedin.com/in/yemagbe">LinkedIn</a></li>
-								<li class="fa-envelope"><a href="mailto:yemagbe@gmail.com">yemagbe@gmail.com</a></li>
-								<li class="fa-github"><a href="https://github.com/Aganju">Github</a></li>
-							</ul>
-							<ul class="copyright">
-								<li>&copy; Omayemi Agbeyegbe. All rights reserved.</li>
-							</ul>
-						</div>
-					</section>
+  <!-- <div class="bio-strip">
+    <div class="bio-cell"><div class="bio-cell-label">Domains</div><div class="bio-cell-value"><span>Healtare AI</span> · Fintech · <span>Telemedicine</span></div></div>
+    <div class="bio-cell"><div class="bio-cell-label">Stage</div><div class="bio-cell-value"><span>Pre-seed</span> through <span>Series A</span></div></div>
+    <div class="bio-cell"><div class="bio-cell-label">Role</div><div class="bio-cell-value"><span>Founding architect</span> · Technical co-founder</div></div>
+    <div class="bio-cell"><div class="bio-cell-label">Base</div><div class="bio-cell-value"><span>Benin City</span> → <span>Brooklyn</span></div></div>
+  </div> -->
 
-			</div>
+  <!-- <hr class="divider-heavy"> -->
+<!-- 
+  <div style="padding:2rem 0">
+    <div class="section-label">Thinking</div>
+    <div class="writing-row"><div class="wr-date">026.03</div><div class="wr-title">Code is free now. Vision is the bottleneck. <span class="wr-tag">( thesis )</span></div></div>
+    <div class="writing-row"><div class="wr-date">026.02</div><div class="wr-title">Your first hire is intent, not a skill set <span class="wr-tag">( pattern )</span></div></div>
+    <div class="writing-row"><div class="wr-date">026.01</div><div class="wr-title">Source code <span class="wr-tag">( strategy )</span></div></div>
+    <div class="writing-row"><div class="wr-date">025.11</div><div class="wr-title">The team is the product <span class="wr-tag">( manifesto )</span></div></div>
+  </div> -->
 
-		<!-- Scripts -->
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
+  <div class="ground-strip"></div>
+
+  <div class="cta-section">
+    <p class="cta-text">When you're building something that matters, the people you put in the room will refine or degrade everything that follows. If you want to think about that together —</p>
+    <a class="cta-link" href="mailto:yemagbe@gmail.com">Start a conversation ↗</a>
+  </div>
+
+  <!-- <hr class="divider" style="margin-top:3rem">
+
+  <div class="reading-sample">
+    <h3>Source code</h3>
+    <div class="article-meta">026.01 · <span>( strategy )</span> · 8 min read</div>
+    <p>Every startup hits a moment where the founder realizes the product isn't what they envisioned. The instinct is to blame <em>execution</em> — hire faster, spec tighter, add process.</p>
+    <p>But the product is a faithful recording of how the team thinks. The distortion happened upstream — in the <em>intent</em>.</p>
+    <blockquote>You cannot fix the output by optimizing the process. You have to go back to the intent.</blockquote>
+    <p>Who's in the room, what they actually care about, whether the vision is deep enough to make decisions obvious — that's the <em>substrate</em>. Everything else is downstream.</p>
+  </div>
+
+  <div class="margin-note">the intent is the product</div>
+</div> -->
+
+<script>
+  let dark = true;
+  function toggleMode() {
+    dark = !dark;
+    document.getElementById('root').setAttribute('data-mode', dark ? 'dark' : 'light');
+    document.body.style.background = dark ? '#1a1a18' : '#cda07a';
+    document.getElementById('mode-icon').textContent = dark ? '☀︎' : '☽';
+    document.getElementById('mode-icon').title = dark ? 'terre de jour' : 'feu de nuit';
+  }
+
+  const phrases = [
+    [
+      { text: 'a ', color: null },
+      { text: 'creative director', color: 'var(--accent)' },
+      { text: ' for ', color: null },
+      { text: 'code', color: 'var(--system)', italic: true }
+    ],
+    [
+      { text: 'a ', color: null },
+      { text: 'vision architect', color: 'var(--accent)' },
+      { text: ' for ', color: null },
+      { text: 'software', color: 'var(--system)', italic: true }
+    ],
+    [
+      { text: 'a ', color: null },
+      { text: 'performance coach', color: 'var(--accent)' },
+      { text: ' for ', color: null },
+      { text: 'startups', color: 'var(--system)', italic: true }
+    ]
+  ];
+  const slot = document.getElementById('slot');
+  let current = 0;
+  const CHAR_DELAY = 15;
+  const DURATION = 120;
+  const EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
+
+  function buildSpans(phrase) {
+    const spans = [];
+    const words = [];
+    let currentWord = [];
+    phrase.forEach(seg => {
+      for (let i = 0; i < seg.text.length; i++) {
+        const ch = seg.text[i];
+        const s = document.createElement(seg.italic ? 'em' : 'span');
+        s.className = 'slot-char';
+        s.textContent = ch === ' ' ? '\u00A0' : ch;
+        if (seg.color) s.style.color = seg.color;
+        if (seg.italic) s.style.fontStyle = 'italic';
+        spans.push(s);
+        if (ch === ' ') {
+          if (currentWord.length) words.push(currentWord);
+          words.push([s]);
+          currentWord = [];
+        } else {
+          currentWord.push(s);
+        }
+      }
+    });
+    if (currentWord.length) words.push(currentWord);
+    spans._words = words;
+    return spans;
+  }
+
+  function appendWords(spans) {
+    spans._words.forEach(word => {
+      if (word.length === 1 && word[0].textContent === '\u00A0') {
+        slot.appendChild(word[0]);
+      } else {
+        const w = document.createElement('span');
+        w.className = 'slot-word';
+        word.forEach(s => w.appendChild(s));
+        slot.appendChild(w);
+      }
+    });
+  }
+
+  function renderPhrase(phrase) {
+    slot.textContent = '';
+    const spans = buildSpans(phrase);
+    spans.forEach(s => {
+      s.style.opacity = '1';
+      s.style.transform = 'translateY(0)';
+    });
+    appendWords(spans);
+  }
+
+  function transitionTo(phrase) {
+    const oldSpans = Array.from(slot.querySelectorAll('.slot-char'));
+    const outCount = oldSpans.length;
+    let outDone = 0;
+
+    function spawnIn() {
+      slot.textContent = '';
+      const spans = buildSpans(phrase);
+      spans.forEach((s, i) => {
+        s.style.opacity = '0';
+        s.style.transform = 'translateY(-0.5em)';
+      });
+      appendWords(spans);
+      spans.forEach((s, i) => {
+        const anim = s.animate([
+          { opacity: 0, transform: 'translateY(-0.5em)' },
+          { opacity: 1, transform: 'translateY(0)' }
+        ], { duration: DURATION, delay: i * CHAR_DELAY, easing: EASING, fill: 'forwards' });
+        anim.onfinish = () => { s.style.opacity = '1'; s.style.transform = 'translateY(0)'; };
+      });
+    }
+
+    if (outCount === 0) { spawnIn(); return; }
+
+    oldSpans.forEach((s, i) => {
+      const anim = s.animate([
+        { opacity: 1, transform: 'translateY(0)' },
+        { opacity: 0, transform: 'translateY(0.5em)' }
+      ], { duration: DURATION, delay: i * CHAR_DELAY, easing: EASING, fill: 'forwards' });
+      anim.onfinish = () => { outDone++; if (outDone === outCount) spawnIn(); };
+    });
+  }
+
+  renderPhrase(phrases[0]);
+
+  setInterval(() => {
+    current = (current + 1) % phrases.length;
+    transitionTo(phrases[current]);
+  }, 3500);
+</script>
 
 	</body>
 </html>
