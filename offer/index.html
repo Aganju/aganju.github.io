@@ -1,0 +1,634 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Software Strategy Sprint — Yemi Agbeyegbe</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A 20-day engagement to audit your AI-built software and build a 90-day plan you can act on." />
+    <link rel="icon" href="../favicon-y-fraunces-nobox.svg" type="image/svg+xml">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      :root {
+        --bg: #1a1a18;
+        --bg-clearing: #1e1c18;
+        --rule: #30281e;
+        --rule-heavy: #efe6d5;
+
+        --text-bone: #efe6d5;
+        --text-sand: #c9b89e;
+        --text-leather: #9e8874;
+        --text-dusk: #928068;
+        --text-bark: #856e52;
+
+        --accent: #e8a44a;
+        --accent-hover: #f5d89a;
+        --accent-secondary: #d4704a;
+
+        --system: #498a49;
+        --system-deep: #2d4a2d;
+
+        --ash: #3d2218;
+        --grad-left: #3d2218;
+        --grad-mid: #648864;
+        --grad-right: #1a2e1a;
+      }
+
+      [data-mode="light"] {
+        --bg: #cda07a;
+        --bg-clearing: #c4986f;
+        --rule: #b08058;
+        --rule-heavy: #261810;
+
+        --text-bone: #1e1610;
+        --text-sand: #2a1a10;
+        --text-leather: #443218;
+        --text-dusk: #453018;
+        --text-bark: #584028;
+
+        --accent: #8b3a2a;
+        --accent-hover: #a04028;
+        --accent-secondary: #6e2e20;
+
+        --system: #046a00;
+        --system-deep: #8aaa80;
+
+        --ash: #6e2e20;
+        --grad-left: #6e2e20;
+        --grad-mid: #3a6838;
+        --grad-right: #2d4a2d;
+      }
+
+      body {
+        font-family: 'Outfit', system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text-bone);
+        transition: background 0.5s, color 0.5s;
+      }
+
+      .page { max-width: 680px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
+      .mode-toggle { cursor: pointer; font-size: 30px; transition: color 0.2s; }
+      .mode-toggle:hover { color: var(--accent); }
+
+      .divider { border: none; border-top: 0.5px solid var(--rule); margin: 2rem 0; transition: border-color 0.5s; }
+      .divider-heavy { border: none; border-top: 1.5px solid var(--rule-heavy); margin: 2.5rem 0; transition: border-color 0.5s; }
+      .ground-strip {
+        height: 3px; border-radius: 2px; margin: 2.5rem 0;
+        background: linear-gradient(90deg, var(--grad-left) 0%, var(--grad-mid) 50%, var(--grad-right) 100%);
+        opacity: 0.45; transition: opacity 0.5s;
+      }
+
+      /* ── Nav ── */
+      .topline {
+        display: flex; justify-content: space-between; align-items: center;
+        font-family: 'Courier Prime', monospace; font-size: 13px;
+        color: var(--system); letter-spacing: 0.04em; margin-bottom: 3rem;
+        transition: color 0.5s, background 0.5s;
+        position: sticky; top: 0; z-index: 100;
+        background: var(--bg); padding: 1rem 0;
+      }
+      .name { color: var(--system); font-family: 'Courier Prime', monospace; font-size: 18px; }
+      .topline-back {
+        font-family: 'Courier Prime', monospace; font-size: 11px;
+        color: var(--text-bark); letter-spacing: 0.04em;
+        text-decoration: none; transition: color 0.2s; opacity: 0.6;
+      }
+      .topline-back:hover { color: var(--text-dusk); opacity: 1; }
+
+      /* ── Section labels ── */
+      .section-label {
+        font-family: 'Courier Prime', monospace; font-size: 12px;
+        letter-spacing: 0.1em; color: var(--system); text-transform: uppercase;
+        margin-bottom: 1.25rem; transition: color 0.5s;
+      }
+
+      /* ── Hero ── */
+      .offer-hero { margin-bottom: 2rem; }
+      .offer-tag {
+        font-family: 'Courier Prime', monospace; font-size: 12px;
+        color: var(--system); letter-spacing: 0.1em; text-transform: uppercase;
+        margin-bottom: 1.25rem;
+      }
+      .offer-headline {
+        font-size: 34px; font-weight: 600; line-height: 1.2; letter-spacing: -0.025em;
+        color: var(--text-bone); margin-bottom: 1.25rem; transition: color 0.5s;
+        max-width: 560px;
+      }
+      .offer-headline em {
+        font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400;
+        color: var(--accent); transition: color 0.5s;
+      }
+      .offer-sub {
+        font-size: 16px; color: var(--text-leather); line-height: 1.7;
+        max-width: 520px; margin-bottom: 1.5rem; transition: color 0.5s;
+      }
+      .offer-sub em {
+        font-family: 'Fraunces', Georgia, serif; font-style: italic;
+        color: var(--text-sand); transition: color 0.5s;
+      }
+      .offer-summary {
+        font-size: 15px; color: var(--text-dusk); line-height: 1.65;
+        margin-bottom: 2rem; transition: color 0.5s;
+      }
+
+      /* ── Hero CTA cluster ── */
+      .hero-cta {
+        display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem;
+      }
+      .hero-cta-row { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+      .scarcity-tag {
+        font-family: 'Courier Prime', monospace; font-size: 12px;
+        color: var(--system); letter-spacing: 0.06em;
+        border: 0.5px solid var(--system); padding: 0.25rem 0.6rem;
+        display: inline-block; transition: color 0.5s, border-color 0.5s;
+      }
+
+      /* ── Primary button ── */
+      .btn-primary {
+        display: inline-block; padding: 0.8rem 1.75rem;
+        background: var(--accent); color: var(--bg);
+        font-family: 'Outfit', system-ui, sans-serif;
+        font-size: 15px; font-weight: 600; letter-spacing: 0.01em;
+        text-decoration: none; border-radius: 2px;
+        transition: background 0.18s, color 0.18s, box-shadow 0.18s; cursor: pointer;
+        border: none;
+      }
+      .btn-primary:hover {
+        background: var(--accent-secondary);
+        color: var(--bg);
+      }
+
+      /* ── Interleave rows ── */
+      .interleave-row {
+        display: grid; grid-template-columns: 110px minmax(0, 1fr);
+        gap: 0 1.5rem; padding: 1.25rem 0;
+        border-bottom: 0.5px solid var(--rule); transition: border-color 0.5s;
+      }
+      .il-label {
+        font-family: 'Courier Prime', monospace; font-size: 12px;
+        color: var(--system); letter-spacing: 0.08em; padding-top: 4px;
+        text-transform: uppercase; transition: color 0.5s;
+      }
+      .il-claim { font-size: 16px; color: var(--text-sand); line-height: 1.6; transition: color 0.5s; }
+      .il-claim em {
+        font-family: 'Fraunces', Georgia, serif; font-style: italic;
+        color: var(--accent); transition: color 0.5s;
+      }
+      .il-proof { font-size: 13px; color: var(--text-dusk); margin-top: 6px; line-height: 1.55; transition: color 0.5s; }
+
+      /* ── Who-it's-for ── */
+      .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+      .fit-col-label {
+        font-family: 'Courier Prime', monospace; font-size: 11px;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--system); margin-bottom: 0.75rem; transition: color 0.5s;
+      }
+      .fit-list { list-style: none; }
+      .fit-list li {
+        font-size: 14px; color: var(--text-sand); line-height: 1.6;
+        padding: 0.5rem 0; border-bottom: 0.5px solid var(--rule);
+        display: flex; gap: 0.6rem; align-items: flex-start;
+        transition: color 0.5s, border-color 0.5s;
+      }
+      .fit-list li:last-child { border-bottom: none; }
+      .fit-list li .marker { color: var(--system); font-family: 'Courier Prime', monospace; flex-shrink: 0; }
+      .fit-list.no li .marker { color: var(--text-bark); }
+
+      /* ── Timeline table ── */
+      .timeline-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 14px; }
+      .timeline-table th {
+        font-family: 'Courier Prime', monospace; font-size: 11px;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--system); text-align: left;
+        padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--rule-heavy);
+        transition: color 0.5s, border-color 0.5s;
+      }
+      .timeline-table td {
+        padding: 0.75rem; color: var(--text-sand);
+        border-bottom: 0.5px solid var(--rule);
+        vertical-align: top; line-height: 1.55;
+        transition: color 0.5s, border-color 0.5s;
+      }
+      .timeline-table td:first-child {
+        font-family: 'Courier Prime', monospace; font-size: 12px;
+        color: var(--text-bark); white-space: nowrap; transition: color 0.5s;
+      }
+      .timeline-table td strong { color: var(--text-bone); font-weight: 500; transition: color 0.5s; }
+
+      /* ── Audit add-on ── */
+      .addon-section {
+        padding: 1.5rem; background: var(--bg-clearing);
+        border: 0.5px solid var(--rule); transition: background 0.5s, border-color 0.5s;
+      }
+      .addon-title {
+        font-size: 20px; font-weight: 600; color: var(--text-bone);
+        margin-bottom: 0.75rem; letter-spacing: -0.015em; transition: color 0.5s;
+      }
+      .addon-body {
+        font-size: 15px; color: var(--text-sand); line-height: 1.65;
+        margin-bottom: 1rem; transition: color 0.5s;
+      }
+      .addon-list { list-style: none; }
+      .addon-list li {
+        font-size: 14px; color: var(--text-sand); line-height: 1.6;
+        padding: 0.4rem 0; border-bottom: 0.5px solid var(--rule);
+        display: flex; gap: 0.6rem;
+        transition: color 0.5s, border-color 0.5s;
+      }
+      .addon-list li:last-child { border-bottom: none; }
+      .addon-list li .marker { color: var(--accent); font-family: 'Courier Prime', monospace; flex-shrink: 0; }
+
+      /* ── Pricing ── */
+      .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+      .pricing-card {
+        border: 0.5px solid var(--rule); padding: 1.5rem;
+        background: var(--bg-clearing); transition: background 0.5s, border-color 0.5s;
+      }
+      .pricing-card-title {
+        font-family: 'Courier Prime', monospace; font-size: 11px;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--system); margin-bottom: 1rem; transition: color 0.5s;
+      }
+      .pricing-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+      .pricing-table td {
+        padding: 0.4rem 0; border-bottom: 0.5px solid var(--rule);
+        color: var(--text-dusk); transition: color 0.5s, border-color 0.5s;
+      }
+      .pricing-table td:last-child { text-align: right; }
+      .pricing-table tr.current td { color: var(--text-sand); }
+      .pricing-table tr.current td:last-child { color: var(--accent); font-weight: 500; font-size: 16px; }
+      .pricing-table tr:last-child td { border-bottom: none; }
+      .pricing-table td.standard { color: var(--text-bark); font-family: 'Courier Prime', monospace; font-size: 12px; }
+      .price-footnote {
+        margin-top: 1rem; font-size: 13px; color: var(--text-dusk);
+        line-height: 1.55; transition: color 0.5s;
+      }
+      .price-footnote strong { color: var(--accent); font-weight: 500; }
+      .savings-callout {
+        margin-top: 1.25rem; padding: 0.85rem 1rem;
+        background: var(--bg-clearing); border-left: 2px solid var(--system);
+        font-size: 14px; color: var(--text-sand); line-height: 1.55;
+        transition: background 0.5s, border-color 0.5s, color 0.5s;
+      }
+      .savings-callout strong { color: var(--text-bone); font-weight: 500; }
+
+      /* ── Guarantee (visually distinct) ── */
+      .guarantee-block {
+        border: 1px solid var(--system); padding: 1.5rem;
+        background: var(--bg-clearing); transition: background 0.5s, border-color 0.5s;
+      }
+      .guarantee-block .guarantee-label {
+        font-family: 'Courier Prime', monospace; font-size: 11px;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--system); margin-bottom: 0.75rem; transition: color 0.5s;
+      }
+      .guarantee-block .guarantee-body {
+        font-size: 17px; font-weight: 600; color: var(--text-bone); line-height: 1.65;
+        margin-bottom: 0.5rem; transition: color 0.5s;
+      }
+      .guarantee-block .guarantee-body em {
+        font-family: 'Fraunces', Georgia, serif; font-style: italic;
+        color: var(--accent); transition: color 0.5s;
+      }
+      .guarantee-block .guarantee-sub {
+        font-size: 13px; color: var(--text-leather); transition: color 0.5s;
+      }
+
+      /* ── Referral callout ── */
+      .callout {
+        border-left: 2px solid var(--ash); padding: 1.25rem;
+        background: var(--bg-clearing); transition: background 0.5s, border-color 0.5s;
+      }
+      .callout-label {
+        font-family: 'Courier Prime', monospace; font-size: 11px;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--system); margin-bottom: 0.6rem; transition: color 0.5s;
+      }
+      .callout-body { font-size: 16px; color: var(--text-sand); line-height: 1.65; transition: color 0.5s; }
+      .callout-body em {
+        font-family: 'Fraunces', Georgia, serif; font-style: italic;
+        color: var(--accent); transition: color 0.5s;
+      }
+
+      /* ── Testimonial ── */
+      .testimonial-block { padding: 2rem 0; }
+      .testimonial-block blockquote {
+        font-family: 'Fraunces', Georgia, serif; font-style: italic;
+        font-size: 17px; color: var(--text-bone); line-height: 1.65;
+        border-left: 2px solid var(--ash); padding-left: 1.25rem;
+        margin-bottom: 1rem; transition: color 0.5s, border-color 0.5s;
+      }
+      .testimonial-block .attribution {
+        font-size: 13px; color: var(--text-dusk); padding-left: 1.25rem; transition: color 0.5s;
+      }
+      .testimonial-block .attribution a {
+        color: var(--text-sand); text-decoration: none;
+        border-bottom: 1px solid var(--rule); transition: color 0.2s, border-color 0.2s;
+      }
+      .testimonial-block .attribution a:hover { color: var(--accent); border-color: var(--accent); }
+
+      /* ── Why $555 ── */
+      .why-block {
+        margin-top: 1.5rem; padding: 1rem 0;
+        border-top: 0.5px solid var(--rule); transition: border-color 0.5s;
+      }
+      .why-block .why-label {
+        font-family: 'Courier Prime', monospace; font-size: 11px;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--system); margin-bottom: 0.5rem; transition: color 0.5s;
+      }
+      .why-block p { font-size: 15px; color: var(--text-sand); line-height: 1.65; transition: color 0.5s; }
+
+      /* ── Main CTA section ── */
+      .cta-section { padding: 3rem 0 1rem; text-align: center; }
+      .cta-headline {
+        font-size: 26px; font-weight: 600; letter-spacing: -0.02em;
+        color: var(--text-bone); margin-bottom: 0.75rem; transition: color 0.5s;
+      }
+      .cta-headline em {
+        font-family: 'Fraunces', Georgia, serif; font-style: italic;
+        color: var(--accent); transition: color 0.5s;
+      }
+      .cta-text {
+        font-size: 15px; color: var(--text-dusk); line-height: 1.65;
+        margin-bottom: 1.5rem; transition: color 0.5s;
+      }
+      .cta-note {
+        margin-top: 1rem; font-size: 13px; color: var(--text-bark);
+        font-family: 'Courier Prime', monospace; transition: color 0.5s;
+      }
+      .cta-note a {
+        color: var(--text-dusk); text-decoration: none;
+        border-bottom: 1px solid var(--rule); transition: color 0.2s;
+      }
+      .cta-note a:hover { color: var(--accent); }
+
+      @media (max-width: 640px) {
+        .offer-headline { font-size: 26px; }
+        .pricing-grid { grid-template-columns: 1fr; }
+        .fit-grid { grid-template-columns: 1fr; }
+        .interleave-row { grid-template-columns: 1fr; gap: 0.25rem 0; }
+        .il-label { padding-top: 0; margin-bottom: 0.25rem; }
+        .hero-cta-row { flex-direction: column; align-items: flex-start; }
+        .cta-section { text-align: left; }
+      }
+    </style>
+  </head>
+  <body>
+
+  <div class="page" id="root">
+
+    <!-- Nav -->
+    <div class="topline">
+      <span class="name">
+        <a href="../" style="display:inline-flex;align-items:center;text-decoration:none;">
+          <img src="../favicon-y-fraunces-nobox.svg" alt="Y" style="height:2.2em;vertical-align:-0.15em;">
+        </a>
+      </span>
+      <a class="topline-back" href="../">yemagbe.com</a>
+      <span class="mode-toggle" onclick="toggleMode()" id="mode-icon" title="terre de jour">☀︎</span>
+    </div>
+
+    <!-- ① Hero -->
+    <div class="offer-hero">
+      <div class="offer-tag">Software Strategy Sprint</div>
+      <h1 class="offer-headline">You shipped something real with AI.<br><em>Now make sure it lasts.</em></h1>
+      <p class="offer-sub">You used Cursor, Claude Code, Lovable, n8n, or some combination — and you have working software. But you also have questions you can't answer yourself: <em>Is this load-bearing? Will it survive 10x users? What did the AI actually decide for me, and which of those decisions will I regret?</em></p>
+      <p class="offer-summary">This is a 20-day engagement to answer those questions and build a 90-day plan you can act on.</p>
+      <div class="hero-cta">
+        <div class="hero-cta-row">
+          <a class="btn-primary" href="mailto:yemi@yemagbe.com?subject=Software%20Strategy%20Sprint%20Application">Apply for the Sprint →</a>
+          <span class="scarcity-tag">5 founding spots · price rises with each sale</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider-heavy">
+
+    <!-- ② Who this is for -->
+    <div style="padding:1.5rem 0 2rem;">
+      <div class="section-label">Who this is for</div>
+      <div class="fit-grid">
+        <div>
+          <div class="fit-col-label">Good fit</div>
+          <ul class="fit-list">
+            <li><span class="marker">✓</span><span>You've shipped a working version (not still in planning)</span></li>
+            <li><span class="marker">✓</span><span>It's being used by real people, or will be within 60 days</span></li>
+            <li><span class="marker">✓</span><span>You want a senior engineering eye before you scale, hire, or go to market</span></li>
+            <li><span class="marker">✓</span><span>You used AI tools (Cursor, Claude Code, Lovable, Bolt, v0, Replit, n8n, Make) to build it — in part or whole</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="fit-col-label">Not a fit</div>
+          <ul class="fit-list no">
+            <li><span class="marker">–</span><span>You're still deciding what to build</span></li>
+            <li><span class="marker">–</span><span>You want someone to write the code for you</span></li>
+            <li><span class="marker">–</span><span>You're looking for ongoing fractional CTO work</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="ground-strip"></div>
+
+    <!-- ③ Who I am -->
+    <div style="padding:1.5rem 0 2rem;">
+      <div class="section-label">Who I am</div>
+      <p style="font-size:16px;color:var(--text-sand);line-height:1.7;margin-bottom:1rem;transition:color 0.5s;">I'm Yemi. I've been the first or lead engineer at six venture-backed startups across real estate, payments, healthcare, and AI. I've shipped products from zero to nationwide scale, made the architectural calls that aged well and the ones that didn't, and learned which decisions matter at which moment.</p>
+      <div class="testimonial-block" style="padding:1.5rem 0 0;">
+        <blockquote>"He's an expert at writing code that will last — he thinks deeply through how our business will evolve to make sure the code is easily maintained."</blockquote>
+        <div class="attribution">— <a href="https://www.linkedin.com/in/will-berkowitz/" target="_blank" rel="noopener">Will Berkowitz</a>, former VP at Rhino (now investing in early-stage companies) · <a href="#full-testimonial">Full quote ↓</a></div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ④ What you get -->
+    <div style="padding:1.5rem 0;">
+      <div class="section-label">What you get</div>
+      <p style="font-size:15px;color:var(--text-dusk);line-height:1.65;margin-bottom:1.5rem;transition:color 0.5s;">20 days, two calls, one written memo, and 14 days of async access to a senior engineer.</p>
+
+      <div class="interleave-row">
+        <div class="il-label">Decisions</div>
+        <div>
+          <div class="il-claim"><em>Architectural Decision Log</em></div>
+          <div class="il-proof">The 3–5 calls that will define your next 90 days, written down and explained.</div>
+        </div>
+      </div>
+      <div class="interleave-row">
+        <div class="il-label">Priorities</div>
+        <div>
+          <div class="il-claim"><em>Prioritized Fix List</em></div>
+          <div class="il-proof">What's load-bearing, what looks scary but isn't, what to ignore.</div>
+        </div>
+      </div>
+      <div class="interleave-row">
+        <div class="il-label">Roadmap</div>
+        <div>
+          <div class="il-claim"><em>90-Day Execution Plan</em></div>
+          <div class="il-proof">Scoped to your tools (Cursor, Claude Code, Lovable, n8n, etc.) and your milestone.</div>
+        </div>
+      </div>
+      <div class="interleave-row">
+        <div class="il-label">Calls</div>
+        <div>
+          <div class="il-claim"><em>Two Recorded Strategy Sessions</em></div>
+          <div class="il-proof">Yours to re-watch.</div>
+        </div>
+      </div>
+      <div class="interleave-row">
+        <div class="il-label">Access</div>
+        <div>
+          <div class="il-claim"><em>14 Days Async Access</em></div>
+          <div class="il-proof">Slack or email, weekday response within 24 hours.</div>
+        </div>
+      </div>
+      <div class="interleave-row">
+        <div class="il-label">Intake</div>
+        <div>
+          <div class="il-claim"><em>Pre-Call Diagnostic Worksheet</em></div>
+          <div class="il-proof">Delivered the moment you sign up, so Call 1 is sharp.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ④b Timeline -->
+    <div style="padding:0 0 2rem;">
+      <div class="section-label">How it runs</div>
+      <table class="timeline-table">
+        <thead>
+          <tr><th>Day</th><th>What happens</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Day 0</td><td>You apply, pay, and receive the diagnostic worksheet</td></tr>
+          <tr><td>Day 1–2</td><td>You complete intake; I review your build</td></tr>
+          <tr><td>Day 3</td><td><strong>Call 1</strong> — strategy &amp; live audit (45 min)</td></tr>
+          <tr><td>Day 4–5</td><td>I deliver the Architectural Decision Log + Fix List</td></tr>
+          <tr><td>Day 6–19</td><td>14 days async support + one mid-engagement check-in</td></tr>
+          <tr><td>Day 20</td><td><strong>Call 2</strong> — review and 90-day execution plan (45 min)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ⑤ Sprint + Audit -->
+    <div style="padding:1rem 0 2rem;">
+      <div class="addon-section">
+        <div class="section-label">Upgrade</div>
+        <div class="addon-title">Sprint + Audit — for builds that need a closer look</div>
+        <div class="addon-body">If your software is more complex, has been in production longer, or you suspect there's something specific under the hood that needs investigation, Sprint + Audit adds a focused code and workflow review to the engagement.</div>
+        <p style="font-size:13px;color:var(--text-bark);font-family:'Courier Prime',monospace;margin-bottom:0.75rem;transition:color 0.5s;">Everything in the Sprint, plus:</p>
+        <ul class="addon-list">
+          <li><span class="marker">+</span><span><strong style="color:var(--text-bone);font-weight:500;">Deep Audit</strong> — 4–6 hours inside your repo or workflow, identifying what the AI built that won't survive contact with reality</span></li>
+          <li><span class="marker">+</span><span><strong style="color:var(--text-bone);font-weight:500;">Audit Report</strong> — written findings, ranked by severity, with recommended fixes</span></li>
+          <li><span class="marker">+</span><span><strong style="color:var(--text-bone);font-weight:500;">Extended async window</strong> — 21 days instead of 14</span></li>
+          <li><span class="marker">+</span><span><strong style="color:var(--text-bone);font-weight:500;">One additional 30-minute call</strong> to walk through the audit findings</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ⑥ Pricing -->
+    <div style="padding:1rem 0 2rem;">
+      <div class="section-label">Founding cohort pricing</div>
+      <p style="font-size:15px;color:var(--text-dusk);line-height:1.65;margin-bottom:1.5rem;transition:color 0.5s;">I'm taking on five Sprints and three Sprint + Audits before this opens at standard rates. Price increases with each sale.</p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-card-title">Software Strategy Sprint</div>
+          <table class="pricing-table">
+            <tbody>
+              <tr class="current"><td>1st sale</td><td>$555</td></tr>
+              <tr><td>2nd sale</td><td>$605</td></tr>
+              <tr><td>3rd sale</td><td>$655</td></tr>
+              <tr><td>4th sale</td><td>$705</td></tr>
+              <tr><td>5th sale</td><td>$755</td></tr>
+              <tr><td class="standard">Standard</td><td class="standard">$1,500</td></tr>
+            </tbody>
+          </table>
+          <div class="price-footnote">Current price: <strong>$555</strong><br>Next sale locks at $605.</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-card-title">Sprint + Audit</div>
+          <table class="pricing-table">
+            <tbody>
+              <tr class="current"><td>1st sale</td><td>$1,111</td></tr>
+              <tr><td>2nd sale</td><td>$1,211</td></tr>
+              <tr><td>3rd sale</td><td>$1,311</td></tr>
+              <tr><td class="standard">Standard</td><td class="standard">$2,500</td></tr>
+            </tbody>
+          </table>
+          <div class="price-footnote">Current price: <strong>$1,111</strong><br>Next sale locks at $1,211.</div>
+        </div>
+      </div>
+
+      <div class="savings-callout">
+        Founding rate saves you <strong>$945 off standard pricing</strong> for the Sprint — and <strong>$1,389 off standard</strong> for Sprint + Audit. After the founding cohort fills, this page comes down for two weeks while I refine v2.
+      </div>
+
+      <div class="why-block">
+        <div class="why-label">Why $555</div>
+        <p>555 is a number I've carried with me for a long time. I wanted it on this offer because the price isn't accidental — it's an intentional starting point for an offer I plan to live with.</p>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ⑦ Guarantee -->
+    <div style="padding:1rem 0 1.5rem;">
+      <div class="guarantee-block">
+        <div class="guarantee-label">The Day 3 Guarantee</div>
+        <div class="guarantee-body">If after our first call you don't feel it was worth what you paid, I refund the full amount and we end the engagement. <em>No questions, no negotiation.</em></div>
+        <div class="guarantee-sub">I'd rather know on Day 3 than have you spend 20 days regretting it.</div>
+      </div>
+    </div>
+
+    <!-- ⑧ Referral pass -->
+    <div style="padding:0 0 2rem;">
+      <div class="callout">
+        <div class="callout-label">Founding member referral pass</div>
+        <div class="callout-body">Founding members lock in one referral at the price they paid — even after the public price has moved past it. <em>Refer a founder, and they get your rate.</em></div>
+      </div>
+    </div>
+
+    <div class="ground-strip"></div>
+
+    <!-- ⑨ Main CTA -->
+    <div class="cta-section">
+      <div class="cta-headline">Ready to make your build last?<br><em>Lock in your founding rate.</em></div>
+      <p class="cta-text">Spots in the founding cohort are filled in order of application. The form takes about 4 minutes.</p>
+      <a class="btn-primary" href="mailto:yemi@yemagbe.com?subject=Software%20Strategy%20Sprint%20Application">Apply for the Software Strategy Sprint →</a>
+      <div class="cta-note">Questions before you apply? <a href="mailto:yemi@yemagbe.com">Email yemi@yemagbe.com</a></div>
+    </div>
+
+    <hr class="divider" style="margin-top:3rem;">
+
+    <!-- ⑩ Full testimonial -->
+    <div id="full-testimonial" style="padding:1.5rem 0 2rem;">
+      <div class="section-label">Full testimonial</div>
+      <div class="testimonial-block">
+        <blockquote>"Yemi joined Rhino as one of our first few engineers and immediately became a leader on the team. He gravitates towards the complex issues and has been a go-to for the trickiest bugs, spending countless late nights finding the root cause and solving for it quickly. He is an expert at writing code that will last — he thinks deeply through how our business will evolve to make sure the code is easily maintained. Yemi is also a cultural leader. He steps up to ensure Rhino is a great place to work for all of his colleagues... he's one of my favorite people to work with!"</blockquote>
+        <div class="attribution">— <a href="https://www.linkedin.com/in/will-berkowitz/" target="_blank" rel="noopener">Will Berkowitz</a>, former VP at Rhino, now investing in early-stage companies</div>
+      </div>
+    </div>
+
+  </div><!-- /.page -->
+
+  <script>
+    let dark = true;
+    function toggleMode() {
+      dark = !dark;
+      document.getElementById('root').setAttribute('data-mode', dark ? 'dark' : 'light');
+      document.body.style.background = dark ? '#1a1a18' : '#cda07a';
+      document.getElementById('mode-icon').textContent = dark ? '☀︎' : '☽';
+      document.getElementById('mode-icon').title = dark ? 'terre de jour' : 'feu de nuit';
+    }
+  </script>
+
+  </body>
+</html>
