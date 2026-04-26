@@ -100,7 +100,7 @@
 
       /* ── Section labels ── */
       .section-label {
-        font-family: 'Courier Prime', monospace; font-size: 12px;
+        font-family: 'Courier Prime', monospace; font-size: 14px; font-weight: 700;
         letter-spacing: 0.1em; color: var(--system); text-transform: uppercase;
         margin-bottom: 1.25rem; transition: color 0.5s;
       }
@@ -149,7 +149,7 @@
       /* ── Primary button ── */
       .btn-primary {
         display: inline-block; padding: 0.8rem 1.75rem;
-        background: var(--accent); color: var(--bg);
+        background: var(--system); color: var(--bg);
         font-family: 'Outfit', system-ui, sans-serif;
         font-size: 15px; font-weight: 600; letter-spacing: 0.01em;
         text-decoration: none; border-radius: 2px;
@@ -157,7 +157,7 @@
         border: none;
       }
       .btn-primary:hover {
-        background: var(--accent-secondary);
+        background: var(--accent);
         color: var(--bg);
       }
 
@@ -384,17 +384,16 @@
     <!-- Nav -->
     <div class="topline">
       <span class="name">
-        <a href="../" style="display:inline-flex;align-items:center;text-decoration:none;">
+        <a href="https://yemagbe.com" style="display:inline-flex;align-items:center;text-decoration:none;">
           <img src="../favicon-y-fraunces-nobox.svg" alt="Y" style="height:2.2em;vertical-align:-0.15em;">
         </a>
       </span>
-      <a class="topline-back" href="../">yemagbe.com</a>
+      <span class="name">Software Strategy Sprint</span>
       <span class="mode-toggle" onclick="toggleMode()" id="mode-icon" title="terre de jour">☀︎</span>
     </div>
 
     <!-- ① Hero -->
     <div class="offer-hero">
-      <div class="offer-tag">Software Strategy Sprint</div>
       <h1 class="offer-headline">You shipped something real with AI.<br><em>Now make sure it lasts.</em></h1>
       <p class="offer-sub">You used Cursor, Claude Code, Lovable, n8n, or some combination — and you have working software. But you also have questions you can't answer yourself: <em>Is this load-bearing? Will it survive 10x users? What did the AI actually decide for me, and which of those decisions will I regret?</em></p>
       <p class="offer-summary">This is a 20-day engagement to answer those questions and build a 90-day plan you can act on.</p>
