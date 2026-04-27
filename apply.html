@@ -1,0 +1,1125 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Apply — Software Strategy Sprint</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Apply for a founding cohort spot in the Software Strategy Sprint." />
+    <link rel="icon" href="/favicon-y-fraunces-nobox.svg" type="image/svg+xml">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      :root {
+        --bg: #1a1a18;
+        --bg-clearing: #1e1c18;
+        --rule: #30281e;
+        --rule-heavy: #efe6d5;
+
+        --text-bone: #efe6d5;
+        --text-sand: #c9b89e;
+        --text-leather: #9e8874;
+        --text-dusk: #928068;
+        --text-bark: #856e52;
+
+        --accent: #e8a44a;
+        --accent-hover: #f5d89a;
+        --accent-secondary: #d4704a;
+
+        --system: #498a49;
+        --system-deep: #2d4a2d;
+
+        --ash: #3d2218;
+        --grad-left: #3d2218;
+        --grad-mid: #648864;
+        --grad-right: #1a2e1a;
+      }
+
+      [data-mode="light"] {
+        --bg: #cda07a;
+        --bg-clearing: #c4986f;
+        --rule: #b08058;
+        --rule-heavy: #261810;
+        --text-bone: #1e1610;
+        --text-sand: #2a1a10;
+        --text-leather: #443218;
+        --text-dusk: #453018;
+        --text-bark: #584028;
+        --accent: #8b3a2a;
+        --accent-hover: #a04028;
+        --accent-secondary: #6e2e20;
+        --system: #046a00;
+        --system-deep: #8aaa80;
+        --ash: #6e2e20;
+        --grad-left: #6e2e20;
+        --grad-mid: #3a6838;
+        --grad-right: #2d4a2d;
+      }
+
+      body {
+        font-family: 'Outfit', system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text-bone);
+        transition: background 0.5s, color 0.5s;
+      }
+
+      .page { max-width: 680px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
+      .mode-toggle { cursor: pointer; font-size: 30px; transition: color 0.2s; }
+      .mode-toggle:hover { color: var(--accent); }
+
+      .divider { border: none; border-top: 0.5px solid var(--rule); margin: 2rem 0; transition: border-color 0.5s; }
+
+      .ground-strip {
+        height: 3px; border-radius: 2px; margin: 2rem 0;
+        background: linear-gradient(90deg, var(--grad-left) 0%, var(--grad-mid) 50%, var(--grad-right) 100%);
+        opacity: 0.45; transition: opacity 0.5s;
+      }
+
+      /* ── Nav ── */
+      .topline {
+        display: flex; justify-content: space-between; align-items: center;
+        font-family: 'Courier Prime', monospace; font-size: 13px;
+        color: var(--system); letter-spacing: 0.04em; margin-bottom: 3rem;
+        transition: color 0.5s, background 0.5s;
+        position: sticky; top: 0; z-index: 100;
+        background: var(--bg); padding: 1rem 0;
+      }
+      .name { color: var(--system); font-family: 'Courier Prime', monospace; font-size: 18px; }
+      .topline-back {
+        font-family: 'Courier Prime', monospace; font-size: 11px;
+        color: var(--text-bark); letter-spacing: 0.04em;
+        text-decoration: none; transition: color 0.2s; opacity: 0.6;
+      }
+      .topline-back:hover { color: var(--text-dusk); opacity: 1; }
+
+      /* ── Progress bar ── */
+      .progress-bar {
+        display: flex; align-items: center; margin-bottom: 2.5rem;
+      }
+      .progress-step {
+        display: flex; align-items: center; gap: 0.5rem;
+        font-family: 'Courier Prime', monospace; font-size: 12px;
+        letter-spacing: 0.06em; color: var(--text-bark);
+        transition: color 0.3s;
+      }
+      .progress-step.active { color: var(--system); }
+      .progress-step.done { color: var(--text-dusk); }
+      .progress-dot {
+        width: 22px; height: 22px; border-radius: 50%;
+        border: 1px solid var(--rule); background: transparent;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 11px; font-family: 'Courier Prime', monospace;
+        color: var(--text-bark); flex-shrink: 0;
+        transition: background 0.3s, border-color 0.3s, color 0.3s;
+      }
+      .progress-step.active .progress-dot {
+        background: var(--system); border-color: var(--system);
+        color: var(--bg);
+      }
+      .progress-step.done .progress-dot {
+        background: var(--system-deep); border-color: var(--system-deep);
+        color: var(--system);
+      }
+      .progress-line {
+        flex: 1; height: 1px; background: var(--rule); margin: 0 0.6rem;
+        transition: background 0.3s;
+      }
+      .progress-line.done { background: var(--system-deep); }
+
+      /* ── Step header ── */
+      .step-label {
+        font-family: 'Courier Prime', monospace; font-size: 11px;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--system); margin-bottom: 0.5rem; transition: color 0.5s;
+      }
+      .step-title {
+        font-size: 26px; font-weight: 600; letter-spacing: -0.02em;
+        color: var(--text-bone); margin-bottom: 0.5rem; transition: color 0.5s;
+      }
+      .step-title em {
+        font-family: 'Fraunces', Georgia, serif; font-style: italic;
+        font-weight: 400; color: var(--accent); transition: color 0.5s;
+      }
+      .step-sub {
+        font-size: 15px; color: var(--text-dusk); line-height: 1.65;
+        margin-bottom: 2rem; transition: color 0.5s;
+      }
+
+      /* ── Package cards ── */
+      .package-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+        margin-bottom: 1.5rem;
+      }
+      .package-card {
+        border: 1px solid var(--rule); padding: 1.5rem;
+        background: var(--bg-clearing); cursor: pointer;
+        transition: border-color 0.2s, background 0.2s;
+        position: relative;
+      }
+      .package-card:hover { border-color: var(--text-bark); }
+      .package-card.selected {
+        border-color: var(--system);
+        background: var(--system-deep);
+      }
+      .package-card.sold-out {
+        opacity: 0.45; cursor: not-allowed;
+        pointer-events: none;
+      }
+      .package-card.sold-out .package-price-now {
+        text-decoration: line-through; color: var(--text-bark);
+      }
+      .package-card .sold-out-flag {
+        display: none;
+        font-family: 'Courier Prime', monospace; font-size: 11px;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--accent-secondary); margin-top: 0.5rem;
+      }
+      .package-card.sold-out .sold-out-flag { display: block; }
+      .package-card-check {
+        position: absolute; top: 0.85rem; right: 0.85rem;
+        width: 18px; height: 18px; border-radius: 50%;
+        border: 1px solid var(--rule); background: transparent;
+        display: flex; align-items: center; justify-content: center;
+        transition: background 0.2s, border-color 0.2s;
+        font-size: 10px; color: transparent;
+      }
+      .package-card.selected .package-card-check {
+        background: var(--system); border-color: var(--system);
+        color: var(--bg);
+      }
+      .package-badge {
+        display: inline-block;
+        font-family: 'Courier Prime', monospace; font-size: 10px;
+        letter-spacing: 0.08em; text-transform: uppercase;
+        padding: 0.2rem 0.55rem; margin-bottom: 0.85rem;
+        border: 0.5px solid var(--accent); color: var(--accent);
+        transition: color 0.5s, border-color 0.5s;
+      }
+      .package-badge.spots {
+        border-color: var(--system); color: var(--system);
+      }
+      .package-name {
+        font-size: 15px; font-weight: 600; color: var(--text-bone);
+        margin-bottom: 0.6rem; transition: color 0.5s;
+      }
+      .package-price-now {
+        font-size: 28px; font-weight: 600; color: var(--accent);
+        letter-spacing: -0.02em; margin-bottom: 0.2rem;
+        transition: color 0.5s;
+      }
+      .package-price-next {
+        font-family: 'Courier Prime', monospace; font-size: 12px;
+        color: var(--text-bark); margin-bottom: 1.1rem;
+        transition: color 0.5s;
+      }
+      .package-features {
+        list-style: none; border-top: 0.5px solid var(--rule);
+        padding-top: 0.85rem; transition: border-color 0.5s;
+      }
+      .package-features li {
+        font-size: 13px; color: var(--text-sand); line-height: 1.55;
+        padding: 0.3rem 0; display: flex; gap: 0.5rem;
+        transition: color 0.5s;
+      }
+      .package-features li .mk { color: var(--system); font-family: 'Courier Prime', monospace; flex-shrink: 0; }
+
+      /* ── Form fields ── */
+      .field-group { margin-bottom: 1.75rem; }
+      .field-label {
+        display: block; font-size: 14px; font-weight: 500;
+        color: var(--text-sand); margin-bottom: 0.5rem;
+        transition: color 0.5s;
+      }
+      .field-hint {
+        font-size: 13px; color: var(--text-bark);
+        margin-bottom: 0.6rem; font-family: 'Courier Prime', monospace;
+        letter-spacing: 0.02em; transition: color 0.5s;
+      }
+      .field-input, .field-textarea, .field-select {
+        width: 100%; background: var(--bg-clearing);
+        border: 0.5px solid var(--rule); color: var(--text-bone);
+        font-family: 'Outfit', system-ui, sans-serif; font-size: 15px;
+        padding: 0.7rem 0.9rem; outline: none;
+        transition: border-color 0.2s, background 0.5s, color 0.5s;
+        border-radius: 0;
+        -webkit-appearance: none;
+      }
+      .field-input:focus, .field-textarea:focus, .field-select:focus {
+        border-color: var(--system);
+      }
+      .field-textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+      .field-select {
+        cursor: pointer;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23928068' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.9rem center;
+        padding-right: 2.5rem;
+      }
+      .field-input::placeholder, .field-textarea::placeholder { color: var(--text-bark); opacity: 0.7; }
+
+      /* ── Chips ── */
+      .chip-group {
+        display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;
+      }
+      .chip {
+        padding: 0.4rem 0.85rem; border: 0.5px solid var(--rule);
+        background: var(--bg-clearing); color: var(--text-dusk);
+        font-family: 'Courier Prime', monospace; font-size: 12px;
+        letter-spacing: 0.04em; cursor: pointer;
+        transition: border-color 0.15s, color 0.15s, background 0.15s;
+        user-select: none;
+      }
+      .chip:hover { border-color: var(--text-bark); color: var(--text-sand); }
+      .chip.active {
+        border-color: var(--system); background: var(--system-deep);
+        color: var(--system);
+      }
+
+      /* ── Radio group ── */
+      .radio-group { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+      .radio-option {
+        display: flex; align-items: flex-start; gap: 0.75rem;
+        padding: 0.75rem 1rem; border: 0.5px solid var(--rule);
+        background: var(--bg-clearing); cursor: pointer;
+        transition: border-color 0.15s, background 0.15s;
+      }
+      .radio-option:hover { border-color: var(--text-bark); }
+      .radio-option.selected {
+        border-color: var(--system); background: var(--system-deep);
+      }
+      .radio-dot {
+        width: 16px; height: 16px; border-radius: 50%;
+        border: 1px solid var(--rule); flex-shrink: 0; margin-top: 2px;
+        display: flex; align-items: center; justify-content: center;
+        transition: border-color 0.15s;
+      }
+      .radio-option.selected .radio-dot { border-color: var(--system); }
+      .radio-dot-inner {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: transparent; transition: background 0.15s;
+      }
+      .radio-option.selected .radio-dot-inner { background: var(--system); }
+      .radio-text { font-size: 14px; color: var(--text-sand); line-height: 1.5; transition: color 0.5s; }
+
+      /* ── Error messages ── */
+      .field-error {
+        font-size: 12px; color: var(--accent-secondary);
+        font-family: 'Courier Prime', monospace; margin-top: 0.45rem;
+        display: none;
+      }
+      .field-error.visible { display: block; }
+      .field-group.has-error .field-input,
+      .field-group.has-error .field-textarea,
+      .field-group.has-error .field-select {
+        border-color: var(--accent-secondary);
+      }
+
+      /* ── Order summary ── */
+      .order-summary {
+        border: 1px solid var(--system); padding: 1.5rem;
+        background: var(--bg-clearing); margin-bottom: 1.75rem;
+        transition: background 0.5s, border-color 0.5s;
+      }
+      .order-summary-label {
+        font-family: 'Courier Prime', monospace; font-size: 11px;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--system); margin-bottom: 1rem; transition: color 0.5s;
+      }
+      .order-row {
+        display: flex; justify-content: space-between; align-items: baseline;
+        padding: 0.5rem 0; border-bottom: 0.5px solid var(--rule);
+        font-size: 14px; transition: border-color 0.5s;
+      }
+      .order-row:last-child { border-bottom: none; }
+      .order-row-key { color: var(--text-dusk); transition: color 0.5s; }
+      .order-row-val { color: var(--text-sand); transition: color 0.5s; }
+      .order-row-val.price {
+        font-size: 20px; font-weight: 600; color: var(--accent);
+        letter-spacing: -0.02em; transition: color 0.5s;
+      }
+
+      /* ── Navigation buttons ── */
+      .btn-row {
+        display: flex; gap: 0.75rem; align-items: center; margin-top: 2rem;
+      }
+      .btn-primary {
+        display: inline-block; padding: 0.85rem 1.75rem;
+        background: var(--system); color: var(--bg);
+        font-family: 'Outfit', system-ui, sans-serif;
+        font-size: 15px; font-weight: 600; letter-spacing: 0.01em;
+        cursor: pointer; border: none; border-radius: 0;
+        transition: background 0.18s, color 0.18s; text-align: center;
+      }
+      .btn-primary:hover { background: var(--accent); color: var(--bg); }
+      .btn-primary:disabled {
+        opacity: 0.5; cursor: not-allowed;
+      }
+      .btn-primary:disabled:hover { background: var(--system); }
+      .btn-ghost {
+        display: inline-block; padding: 0.85rem 1.25rem;
+        background: transparent; color: var(--text-dusk);
+        font-family: 'Courier Prime', monospace;
+        font-size: 13px; letter-spacing: 0.04em;
+        cursor: pointer; border: 0.5px solid var(--rule); border-radius: 0;
+        transition: border-color 0.18s, color 0.18s;
+      }
+      .btn-ghost:hover { border-color: var(--text-bark); color: var(--text-sand); }
+
+      /* ── Submit trust signals ── */
+      .trust-line {
+        margin-top: 0.85rem; font-size: 13px; color: var(--text-bark);
+        font-family: 'Courier Prime', monospace; display: flex;
+        align-items: center; gap: 0.4rem; transition: color 0.5s;
+      }
+      .trust-line .lock { font-size: 12px; }
+
+      /* ── Inline status messages ── */
+      .form-status {
+        padding: 1rem 1.25rem; font-size: 14px; line-height: 1.6;
+        margin-bottom: 1.5rem; display: none;
+      }
+      .form-status.error {
+        border: 0.5px solid var(--accent-secondary);
+        color: var(--accent-secondary); background: var(--bg-clearing);
+        display: block;
+      }
+      .form-status.full {
+        border: 0.5px solid var(--text-bark);
+        color: var(--text-sand); background: var(--bg-clearing);
+        display: block;
+      }
+
+      /* ── Step visibility ── */
+      .form-step { display: none; }
+      .form-step.active { display: block; }
+
+      @media (max-width: 560px) {
+        .package-grid { grid-template-columns: 1fr; }
+        .step-title { font-size: 22px; }
+        .progress-step span { display: none; }
+        .btn-row { flex-direction: column; align-items: stretch; }
+        .btn-primary, .btn-ghost { text-align: center; }
+      }
+    </style>
+  </head>
+  <body>
+  <div class="page" id="root">
+
+    <!-- Nav -->
+    <div class="topline">
+      <span class="name">
+        <a href="https://yemagbe.com" style="display:inline-flex;align-items:center;text-decoration:none;">
+          <img src="/favicon-y-fraunces-nobox.svg" alt="Y" style="height:2.2em;vertical-align:-0.15em;">
+        </a>
+      </span>
+      <a class="topline-back" href="/offer">← Back to offer</a>
+      <span class="mode-toggle" onclick="toggleMode()" id="mode-icon" title="terre de jour">☀︎</span>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progress-bar">
+      <div class="progress-step active" id="prog-1">
+        <div class="progress-dot" id="pdot-1">1</div>
+        <span>Package</span>
+      </div>
+      <div class="progress-line" id="pline-1"></div>
+      <div class="progress-step" id="prog-2">
+        <div class="progress-dot" id="pdot-2">2</div>
+        <span>Your build</span>
+      </div>
+      <div class="progress-line" id="pline-2"></div>
+      <div class="progress-step" id="prog-3">
+        <div class="progress-dot" id="pdot-3">3</div>
+        <span>About you</span>
+      </div>
+      <div class="progress-line" id="pline-3"></div>
+      <div class="progress-step" id="prog-4">
+        <div class="progress-dot" id="pdot-4">4</div>
+        <span>Context</span>
+      </div>
+    </div>
+
+    <!-- ── Step 1: Choose package ── -->
+    <div class="form-step active" id="step-1">
+      <div class="step-label">Step 1 of 4</div>
+      <h1 class="step-title">Choose your <em>package</em></h1>
+      <p class="step-sub">Founding rates apply in order of purchase — price rises with each sale.</p>
+
+      <div class="package-grid" id="package-grid">
+
+        <div class="package-card" id="card-sprint" onclick="selectPackage('sprint')">
+          <div class="package-card-check" id="check-sprint">✓</div>
+          <div class="package-badge spots" id="badge-sprint">10 founding spots</div>
+          <div class="package-name">Software Strategy Sprint</div>
+          <div class="package-price-now" id="price-now-sprint">$555</div>
+          <div class="package-price-next" id="price-next-sprint">Next: $605</div>
+          <div class="sold-out-flag">Cohort full</div>
+          <ul class="package-features">
+            <li><span class="mk">·</span><span>Pre-call diagnostic worksheet</span></li>
+            <li><span class="mk">·</span><span>Architectural Decision Log</span></li>
+            <li><span class="mk">·</span><span>Prioritized Fix List</span></li>
+            <li><span class="mk">·</span><span>90-Day Execution Plan</span></li>
+            <li><span class="mk">·</span><span>2 recorded strategy calls</span></li>
+            <li><span class="mk">·</span><span>14 days async access</span></li>
+          </ul>
+        </div>
+
+        <div class="package-card" id="card-audit" onclick="selectPackage('audit')">
+          <div class="package-card-check" id="check-audit">✓</div>
+          <div class="package-badge" id="badge-audit">Most thorough</div>
+          <div class="package-name">Sprint + Audit</div>
+          <div class="package-price-now" id="price-now-audit">$1,250</div>
+          <div class="package-price-next" id="price-next-audit">Next: $1,500</div>
+          <div class="sold-out-flag">Cohort full</div>
+          <ul class="package-features">
+            <li><span class="mk">·</span><span>Everything in the Sprint</span></li>
+            <li><span class="mk">+</span><span>4–6 hr deep code &amp; workflow audit</span></li>
+            <li><span class="mk">+</span><span>Written audit report, ranked by severity</span></li>
+            <li><span class="mk">+</span><span>21 days async access (vs. 14)</span></li>
+            <li><span class="mk">+</span><span>Extra 30-min audit walkthrough call</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="field-error visible" id="error-package" style="display:none;">Please select a package to continue.</div>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="goToStep(2)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ── Step 2: About your build ── -->
+    <div class="form-step" id="step-2">
+      <div class="step-label">Step 2 of 4</div>
+      <h1 class="step-title">About your <em>build</em></h1>
+      <p class="step-sub">Tell me what you've made and where it stands.</p>
+
+      <div class="field-group" id="fg-whatBuilt">
+        <label class="field-label" for="whatBuilt">What did you build?</label>
+        <div class="field-hint">1–2 sentences is fine.</div>
+        <textarea class="field-textarea" id="whatBuilt" oninput="saveState()" placeholder="E.g. A client portal for a legal firm, built with Cursor and a Next.js template. Users can upload documents and get AI-generated summaries."></textarea>
+        <div class="field-error" id="error-whatBuilt">Please describe what you built.</div>
+      </div>
+
+      <div class="field-group" id="fg-tools">
+        <label class="field-label">Tools used</label>
+        <div class="field-hint">Select all that apply.</div>
+        <div class="chip-group" id="chip-group">
+          <div class="chip" data-tool="Cursor" onclick="toggleChip(this)">Cursor</div>
+          <div class="chip" data-tool="Claude Code" onclick="toggleChip(this)">Claude Code</div>
+          <div class="chip" data-tool="Lovable" onclick="toggleChip(this)">Lovable</div>
+          <div class="chip" data-tool="Bolt" onclick="toggleChip(this)">Bolt</div>
+          <div class="chip" data-tool="v0" onclick="toggleChip(this)">v0</div>
+          <div class="chip" data-tool="Replit" onclick="toggleChip(this)">Replit</div>
+          <div class="chip" data-tool="n8n" onclick="toggleChip(this)">n8n</div>
+          <div class="chip" data-tool="Make" onclick="toggleChip(this)">Make</div>
+          <div class="chip" data-tool="Other" onclick="toggleChip(this)">Other</div>
+        </div>
+        <div class="field-error" id="error-tools">Please select at least one tool.</div>
+      </div>
+
+      <div class="field-group" id="fg-isLive">
+        <label class="field-label">Is it live?</label>
+        <div class="radio-group" id="rg-isLive">
+          <div class="radio-option" data-value="live" onclick="selectRadio('isLive', 'live', this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <div class="radio-text">Yes — people are using it now</div>
+          </div>
+          <div class="radio-option" data-value="soon" onclick="selectRadio('isLive', 'soon', this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <div class="radio-text">Not yet, but will be within 60 days</div>
+          </div>
+          <div class="radio-option" data-value="polishing" onclick="selectRadio('isLive', 'polishing', this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <div class="radio-text">Still being polished before launch</div>
+          </div>
+        </div>
+        <div class="field-error" id="error-isLive">Please select one option.</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="goToStep(3)">Continue →</button>
+        <button class="btn-ghost" onclick="goToStep(1)">← Back</button>
+      </div>
+    </div>
+
+    <!-- ── Step 3: About you ── -->
+    <div class="form-step" id="step-3">
+      <div class="step-label">Step 3 of 4</div>
+      <h1 class="step-title">About <em>you</em></h1>
+      <p class="step-sub">Your contact details and how you fit into your project.</p>
+
+      <div class="field-group" id="fg-name">
+        <label class="field-label" for="fullName">Full name</label>
+        <input class="field-input" type="text" id="fullName" autocomplete="name" oninput="saveState()" placeholder="Your full name" />
+        <div class="field-error" id="error-name">Please enter your name.</div>
+      </div>
+
+      <div class="field-group" id="fg-email">
+        <label class="field-label" for="email">Email</label>
+        <input class="field-input" type="email" id="email" autocomplete="email" oninput="saveState()" placeholder="you@example.com" />
+        <div class="field-error" id="error-email">Please enter a valid email address.</div>
+      </div>
+
+      <div class="field-group" id="fg-company">
+        <label class="field-label" for="company">Product or company name</label>
+        <input class="field-input" type="text" id="company" oninput="saveState()" placeholder="What are you building?" />
+        <div class="field-error" id="error-company">Please enter your product or company name.</div>
+      </div>
+
+      <div class="field-group" id="fg-role">
+        <label class="field-label">Your role</label>
+        <div class="radio-group" id="rg-role">
+          <div class="radio-option" data-value="founder" onclick="selectRadio('role', 'founder', this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <div class="radio-text">Founder / Solo builder</div>
+          </div>
+          <div class="radio-option" data-value="cto" onclick="selectRadio('role', 'cto', this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <div class="radio-text">CTO / Technical lead</div>
+          </div>
+          <div class="radio-option" data-value="nontechnical" onclick="selectRadio('role', 'nontechnical', this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <div class="radio-text">Non-technical founder</div>
+          </div>
+          <div class="radio-option" data-value="pm" onclick="selectRadio('role', 'pm', this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <div class="radio-text">Product manager</div>
+          </div>
+        </div>
+        <div class="field-error" id="error-role">Please select your role.</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-primary" onclick="goToStep(4)">Continue →</button>
+        <button class="btn-ghost" onclick="goToStep(2)">← Back</button>
+      </div>
+    </div>
+
+    <!-- ── Step 4: Context + review ── -->
+    <div class="form-step" id="step-4">
+      <div class="step-label">Step 4 of 4</div>
+      <h1 class="step-title">Final <em>context</em></h1>
+      <p class="step-sub">Last few questions — then you'll see your order summary and lock in your rate.</p>
+
+      <div class="field-group" id="fg-worry">
+        <label class="field-label" for="worry">Biggest worry about your current build</label>
+        <textarea class="field-textarea" id="worry" oninput="saveState()" placeholder="What keeps you up at night about the code? E.g. 'I'm not sure if the auth is solid' or 'the AI chose a database schema I don't fully understand.'"></textarea>
+        <div class="field-error" id="error-worry">Please share your biggest concern.</div>
+      </div>
+
+      <div class="field-group" id="fg-milestone">
+        <label class="field-label">90-day milestone</label>
+        <div class="radio-group" id="rg-milestone">
+          <div class="radio-option" data-value="customers" onclick="selectRadio('milestone', 'customers', this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <div class="radio-text">First paying customers</div>
+          </div>
+          <div class="radio-option" data-value="fundraising" onclick="selectRadio('milestone', 'fundraising', this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <div class="radio-text">Fundraising / investor pitch</div>
+          </div>
+          <div class="radio-option" data-value="scaling" onclick="selectRadio('milestone', 'scaling', this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <div class="radio-text">Scaling to more users</div>
+          </div>
+          <div class="radio-option" data-value="hire" onclick="selectRadio('milestone', 'hire', this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <div class="radio-text">Making a key hire</div>
+          </div>
+          <div class="radio-option" data-value="other" onclick="selectRadio('milestone', 'other', this)">
+            <div class="radio-dot"><div class="radio-dot-inner"></div></div>
+            <div class="radio-text">Something else</div>
+          </div>
+        </div>
+        <div class="field-error" id="error-milestone">Please select your 90-day milestone.</div>
+      </div>
+
+      <div class="field-group" id="fg-source">
+        <label class="field-label" for="source">How did you find out about this?</label>
+        <select class="field-select" id="source" onchange="saveState()">
+          <option value="">Select one</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="twitter">Twitter / X</option>
+          <option value="wordofmouth">Word of mouth</option>
+          <option value="newsletter">Newsletter</option>
+          <option value="seo">Search / SEO</option>
+          <option value="other">Other</option>
+        </select>
+        <div class="field-error" id="error-source">Please select how you found out.</div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- Order summary -->
+      <div class="order-summary" id="order-summary">
+        <div class="order-summary-label">Order summary</div>
+        <div class="order-row">
+          <span class="order-row-key">Package</span>
+          <span class="order-row-val" id="summary-package">—</span>
+        </div>
+        <div class="order-row">
+          <span class="order-row-key">Duration</span>
+          <span class="order-row-val" id="summary-duration">—</span>
+        </div>
+        <div class="order-row">
+          <span class="order-row-key">Founding spots remaining</span>
+          <span class="order-row-val" id="summary-spots">—</span>
+        </div>
+        <div class="order-row">
+          <span class="order-row-key">Today's price</span>
+          <span class="order-row-val price" id="summary-price">—</span>
+        </div>
+      </div>
+
+      <div class="form-status" id="form-status"></div>
+
+      <button class="btn-primary" id="submit-btn" onclick="submitApplication()" style="width:100%;padding:1rem 1.75rem;font-size:16px;">
+        Lock in my founding rate →
+      </button>
+
+      <div class="trust-line">
+        <span class="lock">🔒</span>
+        Secure payment via Stripe
+      </div>
+      <div class="trust-line" style="margin-top:0.35rem;">
+        Day 3 Guarantee — if the first call wasn't worth it, full refund, no questions asked.
+      </div>
+
+      <div class="btn-row" style="margin-top:1.5rem;">
+        <button class="btn-ghost" onclick="goToStep(3)">← Back</button>
+      </div>
+    </div>
+
+  </div><!-- /.page -->
+
+  <script>
+    const API_URL = 'https://yemagbe-money.vercel.app';
+    const STORAGE_KEY = 'apply.formstate.v1';
+
+    // Static metadata — durations don't change. Pricing comes from /api/pricing.
+    const PACKAGE_META = {
+      sprint: { name: 'Software Strategy Sprint', duration: '20 days' },
+      audit:  { name: 'Sprint + Audit', duration: '20 days + extended async' },
+    };
+
+    // Live pricing cache, populated by loadLivePricing(). Falls back to defaults
+    // if the network call fails so the form still works.
+    let livePricing = {
+      sprint: { currentPrice: 555,  nextPrice: 605,  spotsRemaining: 10, soldOut: false },
+      audit:  { currentPrice: 1250, nextPrice: 1500, spotsRemaining: 3,  soldOut: false },
+    };
+
+    const state = {
+      package: null,
+      tools: new Set(),
+      isLive: null,
+      role: null,
+      milestone: null,
+    };
+
+    // ── Package selection ──
+    function selectPackage(pkg) {
+      if (livePricing[pkg]?.soldOut) return;
+      state.package = pkg;
+      document.getElementById('card-sprint').classList.toggle('selected', pkg === 'sprint');
+      document.getElementById('card-audit').classList.toggle('selected', pkg === 'audit');
+      document.getElementById('error-package').style.display = 'none';
+      saveState();
+    }
+
+    // ── Chip toggle ──
+    function toggleChip(el) {
+      const tool = el.dataset.tool;
+      if (state.tools.has(tool)) {
+        state.tools.delete(tool);
+        el.classList.remove('active');
+      } else {
+        state.tools.add(tool);
+        el.classList.add('active');
+      }
+      saveState();
+    }
+
+    // ── Radio selection ──
+    function selectRadio(group, value, el) {
+      state[group] = value;
+      const container = document.getElementById('rg-' + group);
+      container.querySelectorAll('.radio-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      hideError('error-' + group);
+      saveState();
+    }
+
+    function setRadioByValue(group, value) {
+      if (!value) return;
+      const opt = document.querySelector(`#rg-${group} .radio-option[data-value="${value}"]`);
+      if (opt) selectRadio(group, value, opt);
+    }
+
+    // ── Money formatting ──
+    function fmt(amount) {
+      if (amount == null) return '—';
+      return '$' + amount.toLocaleString('en-US');
+    }
+
+    // ── Live pricing fetch ──
+    async function loadLivePricing() {
+      try {
+        const res = await fetch(`${API_URL}/api/pricing`, { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.sprint) livePricing.sprint = data.sprint;
+        if (data.audit)  livePricing.audit  = data.audit;
+      } catch (_) {
+        // Use defaults. Form still functions; Stripe is the source of truth.
+      }
+      renderPackagePricing();
+      renderOrderSummary();
+    }
+
+    function renderPackagePricing() {
+      for (const key of ['sprint', 'audit']) {
+        const p = livePricing[key];
+        const card = document.getElementById('card-' + key);
+        const priceNow = document.getElementById('price-now-' + key);
+        const priceNext = document.getElementById('price-next-' + key);
+        const badge = document.getElementById('badge-' + key);
+        if (!p || !card) continue;
+
+        if (p.soldOut) {
+          card.classList.add('sold-out');
+          priceNow.textContent = fmt(p.currentPrice);
+          priceNext.textContent = '';
+          if (key === 'sprint') badge.textContent = 'Sold out';
+          continue;
+        }
+
+        card.classList.remove('sold-out');
+        priceNow.textContent = fmt(p.currentPrice);
+        priceNext.textContent = p.nextPrice ? `Next: ${fmt(p.nextPrice)}` : 'Final founding spot';
+        if (key === 'sprint') {
+          badge.textContent = `${p.spotsRemaining} of 10 founding spots left`;
+        }
+        // Audit badge stays "Most thorough" — spots count appears in summary
+      }
+    }
+
+    function renderOrderSummary() {
+      if (!state.package) return;
+      const meta = PACKAGE_META[state.package];
+      const live = livePricing[state.package];
+      if (!meta || !live) return;
+      document.getElementById('summary-package').textContent = meta.name;
+      document.getElementById('summary-duration').textContent = meta.duration;
+      document.getElementById('summary-spots').textContent =
+        live.soldOut
+          ? 'Cohort full'
+          : `${live.spotsRemaining} of ${state.package === 'sprint' ? 10 : 3} remaining`;
+      document.getElementById('summary-price').textContent = fmt(live.currentPrice);
+    }
+
+    // ── localStorage persistence ──
+    function saveState() {
+      const snapshot = {
+        package: state.package,
+        tools: Array.from(state.tools),
+        isLive: state.isLive,
+        role: state.role,
+        milestone: state.milestone,
+        fields: {
+          whatBuilt: document.getElementById('whatBuilt')?.value || '',
+          fullName:  document.getElementById('fullName')?.value || '',
+          email:     document.getElementById('email')?.value || '',
+          company:   document.getElementById('company')?.value || '',
+          worry:     document.getElementById('worry')?.value || '',
+          source:    document.getElementById('source')?.value || '',
+        },
+      };
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot)); } catch (_) {}
+    }
+
+    function restoreState() {
+      let snap;
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        snap = JSON.parse(raw);
+      } catch (_) { return; }
+      if (!snap) return;
+
+      // Text fields
+      const setField = (id, val) => { const el = document.getElementById(id); if (el && val != null) el.value = val; };
+      setField('whatBuilt', snap.fields?.whatBuilt);
+      setField('fullName',  snap.fields?.fullName);
+      setField('email',     snap.fields?.email);
+      setField('company',   snap.fields?.company);
+      setField('worry',     snap.fields?.worry);
+      setField('source',    snap.fields?.source);
+
+      // Package
+      if (snap.package === 'sprint' || snap.package === 'audit') {
+        selectPackage(snap.package);
+      }
+
+      // Tools
+      if (Array.isArray(snap.tools)) {
+        snap.tools.forEach(tool => {
+          const chip = document.querySelector(`.chip[data-tool="${tool}"]`);
+          if (chip && !chip.classList.contains('active')) toggleChip(chip);
+        });
+      }
+
+      // Radios
+      setRadioByValue('isLive', snap.isLive);
+      setRadioByValue('role', snap.role);
+      setRadioByValue('milestone', snap.milestone);
+    }
+
+    function clearSavedState() {
+      try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+    }
+
+    // ── Error helpers ──
+    function showError(id) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'block';
+    }
+    function hideError(id) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    }
+    function showFieldError(fgId, errId) {
+      const fg = document.getElementById(fgId);
+      if (fg) fg.classList.add('has-error');
+      showError(errId);
+    }
+    function clearFieldError(fgId, errId) {
+      const fg = document.getElementById(fgId);
+      if (fg) fg.classList.remove('has-error');
+      hideError(errId);
+    }
+
+    // ── Step validation ──
+    function validateStep(n) {
+      let valid = true;
+
+      if (n === 1) {
+        if (!state.package) {
+          showError('error-package');
+          valid = false;
+        } else {
+          hideError('error-package');
+        }
+      }
+
+      if (n === 2) {
+        const whatBuilt = document.getElementById('whatBuilt').value.trim();
+        if (!whatBuilt) {
+          showFieldError('fg-whatBuilt', 'error-whatBuilt');
+          valid = false;
+        } else {
+          clearFieldError('fg-whatBuilt', 'error-whatBuilt');
+        }
+
+        if (state.tools.size === 0) {
+          showError('error-tools');
+          valid = false;
+        } else {
+          hideError('error-tools');
+        }
+
+        if (!state.isLive) {
+          showError('error-isLive');
+          valid = false;
+        } else {
+          hideError('error-isLive');
+        }
+      }
+
+      if (n === 3) {
+        const name = document.getElementById('fullName').value.trim();
+        if (!name) {
+          showFieldError('fg-name', 'error-name');
+          valid = false;
+        } else {
+          clearFieldError('fg-name', 'error-name');
+        }
+
+        const email = document.getElementById('email').value.trim();
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!emailOk) {
+          showFieldError('fg-email', 'error-email');
+          valid = false;
+        } else {
+          clearFieldError('fg-email', 'error-email');
+        }
+
+        const company = document.getElementById('company').value.trim();
+        if (!company) {
+          showFieldError('fg-company', 'error-company');
+          valid = false;
+        } else {
+          clearFieldError('fg-company', 'error-company');
+        }
+
+        if (!state.role) {
+          showError('error-role');
+          valid = false;
+        } else {
+          hideError('error-role');
+        }
+      }
+
+      if (n === 4) {
+        const worry = document.getElementById('worry').value.trim();
+        if (!worry) {
+          showFieldError('fg-worry', 'error-worry');
+          valid = false;
+        } else {
+          clearFieldError('fg-worry', 'error-worry');
+        }
+
+        if (!state.milestone) {
+          showError('error-milestone');
+          valid = false;
+        } else {
+          hideError('error-milestone');
+        }
+
+        const source = document.getElementById('source').value;
+        if (!source) {
+          showFieldError('fg-source', 'error-source');
+          valid = false;
+        } else {
+          clearFieldError('fg-source', 'error-source');
+        }
+      }
+
+      return valid;
+    }
+
+    // ── Step navigation ──
+    function goToStep(n) {
+      const current = getCurrentStep();
+      if (n > current && !validateStep(current)) return;
+
+      // Refresh live pricing when entering step 4 — keeps the displayed price
+      // in sync with what Stripe will actually charge.
+      if (n === 4) {
+        loadLivePricing();
+      }
+
+      document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
+      document.getElementById('step-' + n).classList.add('active');
+      updateProgress(n);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function getCurrentStep() {
+      const active = document.querySelector('.form-step.active');
+      return active ? parseInt(active.id.replace('step-', '')) : 1;
+    }
+
+    function updateProgress(n) {
+      for (let i = 1; i <= 4; i++) {
+        const prog = document.getElementById('prog-' + i);
+        const dot = document.getElementById('pdot-' + i);
+        prog.classList.remove('active', 'done');
+        if (i < n) {
+          prog.classList.add('done');
+          dot.textContent = '✓';
+        } else if (i === n) {
+          prog.classList.add('active');
+          dot.textContent = i;
+        } else {
+          dot.textContent = i;
+        }
+      }
+      for (let i = 1; i <= 3; i++) {
+        const line = document.getElementById('pline-' + i);
+        line.classList.toggle('done', i < n);
+      }
+    }
+
+    // ── Submit ──
+    async function submitApplication() {
+      if (!validateStep(4)) return;
+
+      saveState();
+
+      const btn = document.getElementById('submit-btn');
+      const status = document.getElementById('form-status');
+
+      btn.disabled = true;
+      btn.textContent = 'Securing your spot…';
+      status.className = 'form-status';
+
+      const payload = {
+        product: state.package,
+        name: document.getElementById('fullName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        company: document.getElementById('company').value.trim(),
+        metadata: {
+          role: state.role,
+          whatBuilt: document.getElementById('whatBuilt').value.trim(),
+          toolsUsed: Array.from(state.tools).join(', '),
+          isLive: state.isLive,
+          biggestWorry: document.getElementById('worry').value.trim(),
+          milestone: state.milestone,
+          source: document.getElementById('source').value,
+        },
+      };
+
+      try {
+        const res = await fetch(`${API_URL}/api/checkout`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (res.status === 410) {
+          status.textContent = 'This cohort is now full. Email yemi@yemagbe.com to be notified when the next cohort opens.';
+          status.className = 'form-status full';
+          btn.disabled = false;
+          btn.textContent = 'Lock in my founding rate →';
+          return;
+        }
+
+        if (!res.ok) {
+          throw new Error('Server error');
+        }
+
+        const { url } = await res.json();
+        window.location.href = url;
+
+      } catch (err) {
+        status.textContent = 'Something went wrong. Please try again or email yemi@yemagbe.com.';
+        status.className = 'form-status error';
+        btn.disabled = false;
+        btn.textContent = 'Lock in my founding rate →';
+      }
+    }
+
+    // ── Light / dark mode ──
+    let dark = true;
+    function toggleMode() {
+      dark = !dark;
+      document.getElementById('root').setAttribute('data-mode', dark ? 'dark' : 'light');
+      document.body.style.background = dark ? '#1a1a18' : '#cda07a';
+      document.getElementById('mode-icon').textContent = dark ? '☀︎' : '☽';
+      document.getElementById('mode-icon').title = dark ? 'terre de jour' : 'feu de nuit';
+    }
+
+    // ── Bootstrap ──
+    document.addEventListener('DOMContentLoaded', () => {
+      restoreState();
+      loadLivePricing();
+    });
+  </script>
+
+  </body>
+</html>

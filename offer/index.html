@@ -382,9 +382,108 @@
       }
     </style>
   </head>
+  <style>
+    .status-banner {
+      padding: 1rem 1.25rem; margin-bottom: 2rem;
+      display: none; justify-content: space-between; align-items: flex-start;
+      gap: 1rem; transition: background 0.5s, border-color 0.5s;
+    }
+    .status-banner.visible { display: flex; }
+    .status-banner.pending {
+      background: var(--bg-clearing); border: 1px solid var(--rule-heavy);
+    }
+    .status-banner.confirmed {
+      background: var(--system-deep); border: 1px solid var(--system);
+    }
+    .status-banner.spot-taken {
+      background: var(--bg-clearing); border: 1px solid var(--accent-secondary);
+    }
+    .status-banner.cancelled {
+      background: var(--bg-clearing); border: 1px solid var(--rule);
+    }
+    .status-banner-body { flex: 1; }
+    .status-banner-text {
+      font-size: 15px; color: var(--text-bone); line-height: 1.55;
+      transition: color 0.5s;
+    }
+    .status-banner-text strong { color: var(--text-bone); font-weight: 500; }
+    .status-banner.confirmed .status-banner-text strong { color: var(--system); }
+    .status-banner.spot-taken .status-banner-text strong { color: var(--accent-secondary); }
+    .status-banner-sub {
+      font-size: 13px; color: var(--text-dusk); line-height: 1.55;
+      margin-top: 0.4rem; transition: color 0.5s;
+    }
+    .status-banner-actions { margin-top: 0.75rem; display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .status-banner-cta {
+      display: inline-block; padding: 0.55rem 1.1rem;
+      background: var(--accent); color: var(--bg);
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.01em;
+      text-decoration: none; border-radius: 2px; cursor: pointer;
+      border: none; transition: background 0.2s;
+    }
+    .status-banner-cta:hover { background: var(--accent-hover); color: var(--bg); }
+    .status-banner-cta:disabled { opacity: 0.5; cursor: not-allowed; }
+    .status-banner-link {
+      font-size: 13px; color: var(--text-dusk);
+      font-family: 'Courier Prime', monospace;
+      align-self: center; text-decoration: none;
+      border-bottom: 0.5px solid var(--rule); transition: color 0.2s;
+    }
+    .status-banner-link:hover { color: var(--text-sand); }
+    .status-banner-dismiss {
+      font-family: 'Courier Prime', monospace; font-size: 16px;
+      color: var(--text-bark); cursor: pointer; flex-shrink: 0;
+      background: none; border: none; padding: 0; line-height: 1;
+      transition: color 0.2s;
+    }
+    .status-banner-dismiss:hover { color: var(--text-sand); }
+    .status-spinner {
+      display: inline-block; width: 12px; height: 12px;
+      border: 1.5px solid var(--rule); border-top-color: var(--text-sand);
+      border-radius: 50%; animation: status-spin 0.9s linear infinite;
+      vertical-align: -1px; margin-right: 0.5rem;
+    }
+    @keyframes status-spin { to { transform: rotate(360deg); } }
+  </style>
   <body>
 
   <div class="page" id="root">
+
+    <!-- Status banners — exactly one is visible at a time, driven by URL params + /api/status -->
+    <div class="status-banner pending" id="banner-pending">
+      <div class="status-banner-body">
+        <div class="status-banner-text"><span class="status-spinner"></span><strong>Confirming your spot…</strong></div>
+        <div class="status-banner-sub">Just a moment while we verify with Stripe.</div>
+      </div>
+    </div>
+
+    <div class="status-banner confirmed" id="banner-confirmed">
+      <div class="status-banner-body">
+        <div class="status-banner-text"><strong>You're in.</strong> Check your email — the diagnostic worksheet is on its way.</div>
+      </div>
+      <button class="status-banner-dismiss" onclick="dismissBanner()" aria-label="Dismiss">✕</button>
+    </div>
+
+    <div class="status-banner spot-taken" id="banner-spot-taken">
+      <div class="status-banner-body">
+        <div class="status-banner-text"><strong>Someone claimed that spot seconds before you.</strong></div>
+        <div class="status-banner-sub">Your card was not charged. The next founding spot is still available — at the next price tier.</div>
+        <div class="status-banner-actions">
+          <button class="status-banner-cta" id="retry-cta" onclick="retryAtNextRate()">Lock in next available spot →</button>
+          <a class="status-banner-link" href="mailto:yemi@yemagbe.com">or email yemi@yemagbe.com</a>
+        </div>
+      </div>
+      <button class="status-banner-dismiss" onclick="dismissBanner()" aria-label="Dismiss">✕</button>
+    </div>
+
+    <div class="status-banner cancelled" id="banner-cancelled">
+      <div class="status-banner-body">
+        <div class="status-banner-text"><strong>Checkout cancelled.</strong></div>
+        <div class="status-banner-sub">No charge was made. Your application is still saved if you'd like to <a href="/apply.html" style="color:var(--accent);text-decoration:none;border-bottom:0.5px solid var(--rule);">try again</a>.</div>
+      </div>
+      <button class="status-banner-dismiss" onclick="dismissBanner()" aria-label="Dismiss">✕</button>
+    </div>
 
     <!-- Nav -->
     <div class="topline">
@@ -404,7 +503,7 @@
       <p class="offer-summary">This is a 20-day engagement to answer those questions and build a 90-day plan you can act on.</p>
       <div class="hero-cta">
         <div class="hero-cta-row">
-          <a class="btn-primary" href="mailto:yemi@yemagbe.com?subject=Software%20Strategy%20Sprint%20Application">Apply for the Sprint →</a>
+          <a class="btn-primary" href="/apply.html">Apply for the Sprint →</a>
           <span class="scarcity-tag">10 founding spots · price rises with each sale</span>
         </div>
       </div>
@@ -599,7 +698,7 @@
     <div class="cta-section">
       <div class="cta-headline">Ready to make your build last?<br><em>Lock in your founding rate.</em></div>
       <p class="cta-text">Spots in the founding cohort are filled in order of application. The form takes about 4 minutes.</p>
-      <a class="btn-primary" href="mailto:yemi@yemagbe.com?subject=Software%20Strategy%20Sprint%20Application">Apply for the Software Strategy Sprint →</a>
+      <a class="btn-primary" href="/apply.html">Apply for the Software Strategy Sprint →</a>
       <div class="cta-note">Questions before you apply? <a href="mailto:yemi@yemagbe.com">Email yemi@yemagbe.com</a></div>
     </div>
 
@@ -617,6 +716,9 @@
   </div><!-- /.page -->
 
   <script>
+    const API_URL = 'https://yemagbe-money.vercel.app';
+    const STORAGE_KEY = 'apply.formstate.v1';
+
     let dark = true;
     function toggleMode() {
       dark = !dark;
@@ -625,6 +727,193 @@
       document.getElementById('mode-icon').textContent = dark ? '☀︎' : '☽';
       document.getElementById('mode-icon').title = dark ? 'terre de jour' : 'feu de nuit';
     }
+
+    // ── Banner state machine ──
+    const BANNER_IDS = ['pending', 'confirmed', 'spot-taken', 'cancelled'];
+
+    function showBanner(state) {
+      BANNER_IDS.forEach(s => {
+        const el = document.getElementById('banner-' + s);
+        if (!el) return;
+        el.classList.toggle('visible', s === state);
+      });
+    }
+
+    function dismissBanner() {
+      BANNER_IDS.forEach(s => {
+        const el = document.getElementById('banner-' + s);
+        if (el) el.classList.remove('visible');
+      });
+    }
+
+    // ── Status polling on ?success=true ──
+    async function pollStatus(sessionId) {
+      const start = Date.now();
+      const deadline = start + 30_000;
+
+      const tick = async () => {
+        try {
+          const res = await fetch(`${API_URL}/api/status?session_id=${encodeURIComponent(sessionId)}`, { cache: 'no-store' });
+          if (res.ok) {
+            const { state } = await res.json();
+            if (state === 'confirmed') {
+              showBanner('confirmed');
+              try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+              setTimeout(dismissBanner, 10_000);
+              return;
+            }
+            if (state === 'spot_taken') {
+              await prepareRetryButton();
+              showBanner('spot-taken');
+              return;
+            }
+            if (state === 'cancelled') {
+              showBanner('cancelled');
+              return;
+            }
+            // 'pending' — keep polling
+          }
+        } catch (_) { /* swallow, retry */ }
+
+        if (Date.now() < deadline) {
+          setTimeout(tick, 2_000);
+        } else {
+          // Couldn't confirm in 30s — degrade gracefully. Still show "you're in"
+          // because the email path is the source of truth at this point.
+          showBanner('confirmed');
+          try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+        }
+      };
+      tick();
+    }
+
+    // ── Status check on ?cancelled=true ──
+    async function checkCancelStatus(sessionId) {
+      try {
+        const res = await fetch(`${API_URL}/api/status?session_id=${encodeURIComponent(sessionId)}`, { cache: 'no-store' });
+        if (res.ok) {
+          const { state } = await res.json();
+          if (state === 'spot_taken') {
+            await prepareRetryButton();
+            showBanner('spot-taken');
+            return;
+          }
+        }
+      } catch (_) { /* fall through */ }
+      showBanner('cancelled');
+    }
+
+    // ── Retry button: fetch live next-tier price, update label ──
+    async function prepareRetryButton() {
+      const btn = document.getElementById('retry-cta');
+      if (!btn) return;
+      let raw = null;
+      try { raw = localStorage.getItem(STORAGE_KEY); } catch (_) {}
+      const stored = raw ? JSON.parse(raw) : null;
+      const product = stored?.package;
+
+      if (!product) {
+        btn.textContent = 'Re-apply →';
+        btn.onclick = () => { window.location.href = '/apply.html'; };
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_URL}/api/pricing`, { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          const p = data[product];
+          if (p?.soldOut) {
+            btn.textContent = 'Cohort full — view options';
+            btn.onclick = () => { window.location.href = '/offer'; };
+            return;
+          }
+          if (p?.currentPrice != null) {
+            btn.textContent = `Lock in next spot — $${p.currentPrice.toLocaleString('en-US')} →`;
+          }
+        }
+      } catch (_) { /* keep generic label */ }
+    }
+
+    // ── One-click retry from saved form state ──
+    async function retryAtNextRate() {
+      const btn = document.getElementById('retry-cta');
+      let raw = null;
+      try { raw = localStorage.getItem(STORAGE_KEY); } catch (_) {}
+      const stored = raw ? JSON.parse(raw) : null;
+
+      if (!stored || !stored.package) {
+        window.location.href = '/apply.html';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Securing your spot…';
+
+      const payload = {
+        product: stored.package,
+        name: stored.fields?.fullName || '',
+        email: stored.fields?.email || '',
+        company: stored.fields?.company || '',
+        metadata: {
+          role: stored.role || '',
+          whatBuilt: stored.fields?.whatBuilt || '',
+          toolsUsed: Array.isArray(stored.tools) ? stored.tools.join(', ') : '',
+          isLive: stored.isLive || '',
+          biggestWorry: stored.fields?.worry || '',
+          milestone: stored.milestone || '',
+          source: stored.fields?.source || '',
+          retry: 'true',
+        },
+      };
+
+      try {
+        const res = await fetch(`${API_URL}/api/checkout`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (res.status === 410) {
+          btn.disabled = false;
+          btn.textContent = 'Cohort full — view options';
+          btn.onclick = () => { window.location.href = '/offer'; };
+          return;
+        }
+        if (!res.ok) throw new Error('checkout failed');
+        const { url } = await res.json();
+        window.location.href = url;
+      } catch (_) {
+        btn.disabled = false;
+        btn.textContent = 'Try again →';
+      }
+    }
+
+    // ── Bootstrap from URL params ──
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get('session_id');
+
+      if (params.get('success') === 'true') {
+        showBanner('pending');
+        if (sessionId) {
+          pollStatus(sessionId);
+        } else {
+          // No session_id — legacy fallback. Trust the success param.
+          showBanner('confirmed');
+          try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+          setTimeout(dismissBanner, 10_000);
+        }
+        return;
+      }
+
+      if (params.get('cancelled') === 'true') {
+        if (sessionId) {
+          checkCancelStatus(sessionId);
+        } else {
+          showBanner('cancelled');
+        }
+      }
+    })();
   </script>
 
   </body>
