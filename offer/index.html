@@ -262,6 +262,7 @@
       .pricing-table tr.current td:last-child { color: var(--accent); font-weight: 500; font-size: 16px; }
       .pricing-table tr:last-child td { border-bottom: none; }
       .pricing-table td.standard { color: var(--text-bark); font-family: 'Courier Prime', monospace; font-size: 12px; }
+      .pricing-table tr.struck td { text-decoration: line-through; color: var(--text-bark); opacity: 0.45; }
       .price-footnote {
         margin-top: 1rem; font-size: 13px; color: var(--text-dusk);
         line-height: 1.55; transition: color 0.5s;
@@ -644,34 +645,34 @@
       <div class="pricing-grid">
         <div class="pricing-card">
           <div class="pricing-card-title">Software Strategy Sprint</div>
-          <table class="pricing-table">
+          <table class="pricing-table" id="sprint-pricing-table">
             <tbody>
-              <tr class="current"><td>1st sale</td><td>$555</td></tr>
-              <tr><td>2nd sale</td><td>$605</td></tr>
-              <tr><td>3rd sale</td><td>$655</td></tr>
-              <tr><td>4th sale</td><td>$705</td></tr>
-              <tr><td>5th sale</td><td>$755</td></tr>
-              <tr><td>6th sale</td><td>$805</td></tr>
-              <tr><td>7th sale</td><td>$855</td></tr>
-              <tr><td>8th sale</td><td>$905</td></tr>
-              <tr><td>9th sale</td><td>$955</td></tr>
-              <tr><td>10th sale</td><td>$1,005</td></tr>
+              <tr data-sale="1" class="current"><td>1st sale</td><td>$555</td></tr>
+              <tr data-sale="2"><td>2nd sale</td><td>$605</td></tr>
+              <tr data-sale="3"><td>3rd sale</td><td>$655</td></tr>
+              <tr data-sale="4"><td>4th sale</td><td>$705</td></tr>
+              <tr data-sale="5"><td>5th sale</td><td>$755</td></tr>
+              <tr data-sale="6"><td>6th sale</td><td>$805</td></tr>
+              <tr data-sale="7"><td>7th sale</td><td>$855</td></tr>
+              <tr data-sale="8"><td>8th sale</td><td>$905</td></tr>
+              <tr data-sale="9"><td>9th sale</td><td>$955</td></tr>
+              <tr data-sale="10"><td>10th sale</td><td>$1,005</td></tr>
               <tr><td class="standard">Standard</td><td class="standard">$1,500</td></tr>
             </tbody>
           </table>
-          <div class="price-footnote">Current price: <strong>$555</strong><br>Next sale locks at $605.</div>
+          <div class="price-footnote" id="sprint-footnote">Current price: <strong>$555</strong><br>Next sale locks at $605.</div>
         </div>
         <div class="pricing-card">
           <div class="pricing-card-title">Sprint + Audit</div>
-          <table class="pricing-table">
+          <table class="pricing-table" id="audit-pricing-table">
             <tbody>
-              <tr class="current"><td>1st sale</td><td>$1,250</td></tr>
-              <tr><td>2nd sale</td><td>$1,500</td></tr>
-              <tr><td>3rd sale</td><td>$1,750</td></tr>
+              <tr data-sale="1" class="current"><td>1st sale</td><td>$1,250</td></tr>
+              <tr data-sale="2"><td>2nd sale</td><td>$1,500</td></tr>
+              <tr data-sale="3"><td>3rd sale</td><td>$1,750</td></tr>
               <tr><td class="standard">Standard</td><td class="standard">$3,500</td></tr>
             </tbody>
           </table>
-          <div class="price-footnote">Current price: <strong>$1,250</strong><br>Next sale locks at $1,500.</div>
+          <div class="price-footnote" id="audit-footnote">Current price: <strong>$1,250</strong><br>Next sale locks at $1,500.</div>
         </div>
       </div>
 
@@ -689,6 +690,7 @@
         <div class="guarantee-label">The Day 3 Guarantee</div>
         <div class="guarantee-body">If after our first call you don't feel it was worth what you paid, I refund the full amount and we end the engagement. <em>No questions, no negotiation.</em></div>
         <div class="guarantee-sub">I'd rather know on Day 3 than have you spend 20 days regretting it.</div>
+        <div class="guarantee-sub" style="margin-top:0.6rem;padding-top:0.6rem;border-top:0.5px solid var(--rule);">I reserve the same right. If the engagement isn't the right fit from my side — for any reason — I'll say so within Day 3 and issue a full refund.</div>
       </div>
     </div>
 
@@ -718,6 +720,52 @@
   <script>
     const API_URL = 'https://yemagbe-money.vercel.app';
     const STORAGE_KEY = 'apply.formstate.v1';
+
+    // ── Live pricing on the offer page ──
+    const SPRINT_TIERS = [555, 605, 655, 705, 755, 805, 855, 905, 955, 1005];
+    const AUDIT_TIERS  = [1250, 1500, 1750];
+    const ORDINALS = ['1st','2nd','3rd','4th','5th','6th','7th','8th','9th','10th'];
+
+    function fmt(n) { return '$' + n.toLocaleString('en-US'); }
+
+    function updatePricingTable(tableId, footnoteId, tiers, data) {
+      const table = document.getElementById(tableId);
+      const footnote = document.getElementById(footnoteId);
+      if (!table || !footnote) return;
+
+      const total = tiers.length;
+      const soldCount = data.soldOut ? total : Math.max(0, total - (data.spotsRemaining ?? total));
+
+      table.querySelectorAll('tr[data-sale]').forEach(row => {
+        const saleNum = parseInt(row.dataset.sale, 10);
+        row.classList.remove('current', 'struck');
+        if (saleNum <= soldCount) {
+          row.classList.add('struck');
+        } else if (saleNum === soldCount + 1) {
+          row.classList.add('current');
+        }
+      });
+
+      if (data.soldOut) {
+        footnote.innerHTML = 'Founding cohort <strong>full</strong>. Standard rate applies.';
+      } else {
+        const price = data.currentPrice ?? tiers[soldCount];
+        const nextPrice = data.nextPrice ?? tiers[soldCount + 1];
+        footnote.innerHTML = `Current price: <strong>${fmt(price)}</strong><br>${nextPrice != null ? `Next sale locks at ${fmt(nextPrice)}.` : 'Final founding spot.'}`;
+      }
+    }
+
+    async function loadOfferPricing() {
+      try {
+        const res = await fetch(`${API_URL}/api/pricing`, { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data.sprint) updatePricingTable('sprint-pricing-table', 'sprint-footnote', SPRINT_TIERS, data.sprint);
+        if (data.audit)  updatePricingTable('audit-pricing-table',  'audit-footnote',  AUDIT_TIERS,  data.audit);
+      } catch (_) { /* keep static defaults */ }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadOfferPricing);
 
     let dark = true;
     function toggleMode() {
